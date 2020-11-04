@@ -31,6 +31,8 @@ class Business(db.Model):
     description = db.Column(db.Text)
     service_id = db.Column(db.Integer, db.ForeignKey('services.service_id'))
 
+    service = db.relationship('Service', backref='businesses')
+
     def __repr__(self):
         return f'<Business org_id={self.org_id}, bus_name={self.bus_name}>'
 
@@ -43,6 +45,8 @@ class Service(db.Model):
     name_serv = db.Column(db.String, nullable=False)
     description = db.Column(db.Text)
     event_id = db.Column(db.Integer, db.ForeignKey('events.event_id'))
+
+    event = db.relationship('Event', backref='services')
 
     def __repr__(self):
         return f'Service service_id={self.service_id}, name={self.name_serv}>'
@@ -60,6 +64,8 @@ class Event(db.Model):
     description = db.Column(db.Text)
     service_id = db.Column(db.Integer, db.ForeignKey('services.service_id'))
 
+    service = db.relationship('Service', backref='events')
+
     def __repr__(self):
         return f'<Event event_id={self.event_id}, event name={self.name_evt}>'
 
@@ -71,6 +77,9 @@ class UserBus(db.Model):
     user_bus_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     bus_id = db.Column(db.Integer, db.ForeignKey('businesses.bus_id'))
+
+    user = db.relationship('User', backref='users businesses')
+    business = db.relationship('Business', backref='users businesses')
 
     def __repr__(self):
         return f'<UserBus user_bus_id={self.user_bus_id}>'
