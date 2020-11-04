@@ -7,12 +7,86 @@ class User(db.model):
 
     __tablename__ = 'users'
 
-    user_id
-    fname
-    lname
-    email
-    password
-    tel
+    user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    fname = db.Column(db.String)
+    lname = db.Column(db.String)
+    email = db.Column(db.String, unique=True, nullable=False)
+    password = db.Column(db.String, unique=True, nullable=False)
+    tel = db.Column(db.String, unique=True)
 
     def __repr__(self):
-        return f'<User user_id={self.user_id}, name={self.fname} {self.lname}, email={self.email}'
+        return f'<User user_id={self.user_id}, name={self.fname} {self.lname}, email={self.email}>'
+
+class Business(db.Model):
+    """Instantiate a business"""
+# TODO: db type for url and address? Maybe a specific type
+    __tablename__ = 'businesses'
+
+    org_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    bus_name = db.Column(db.String, nullable=False)
+    url = db.Column(db.????, unique=True)
+    address = db.Column(db.???, unique=True)
+    email = db.Column(db.String, unique=True, nullable=False)
+    tel = db.Column(db.String, unique=True)
+    description = db.Column(db.Text)
+    service_id = db.Column(db.Integer, db.ForeignKey('services.service_id'))
+
+    def __repr__(self):
+        return f'<Business org_id={self.org_id}, bus_name={self.bus_name}>'
+
+class Service(db.Model):
+    """A service a business provides"""
+
+    __tablename__ = 'services'
+
+    service_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    name_serv = db.Column(db.String, nullable=False)
+    description = db.Column(db.Text)
+    event_id = db.Column(db.Integer, db.ForeignKey('events.event_id'))
+
+    def __repr__(self):
+        return f'Service service_id={self.service_id}, name={self.name_serv}>'
+
+class Event(db.Model):
+    """An event"""
+# TODO: import datetime, research datetime
+
+    __tablename__ = 'events'
+
+    event_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    name_evt = db.Column(db.String, nullable=False)
+    start = db.Column(db.DateTime, nullable=False)
+    end = db.Column(db.DateTime, nullable=False)
+    description = db.Column(db.Text)
+    service_id = db.Column(db.Integer, db.ForeignKey('services.service_id'))
+
+    def __repr__(self):
+        return f'<Event event_id={self.event_id}, event name={self.name_evt}>'
+
+class UserBus(db.Model):
+    """Connecting Users with businessess they favorite"""
+
+    __tablename__ = 'users businessess'
+
+    user_bus_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    bus_id = db.Column(db.Integer, db.ForeignKey('businesses.bus_id'))
+
+    def __repr__(self):
+        return f'<UserBus user_bus_id={self.user_bus_id}>'
+
+def connect_to_db(flask_app, db_uri='?????', echo=True):
+#  TODO: db_uri???? also not sure how exactly this function works
+    flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+    flask_app.config['SQLALCHEMY_ECHO'] = echo
+    flask_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    db.app = flask_app
+    db.init_app(flask_app)
+
+    print('Connected to the db')
+
+if __name__ == '__main__':
+    from server import app
+
+    connect_to_db(app)
