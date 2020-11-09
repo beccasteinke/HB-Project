@@ -1,0 +1,38 @@
+[
+    {
+        "name_evt": "sound bath meditation",
+        "start": "2021-01-10-9",
+        "end": "2021-01-10-10",
+        "description": "Meditation with crystal bowls"
+    },
+    {
+        "name_evt": "accupuncture",
+        "start": "2021-01-11-9",
+        "end": "2021-01-11-10",
+        "description": "accupuncture clinic"
+    },
+    {
+        "name_evt": "cold bath plunge",
+        "start": "2021-01-12-10",
+        "end": "2021-01-12-11",
+        "description": "ice bath plunge clinic"
+    },
+    {
+        "name_evt": "sound bath yoga",
+        "start": "2021-01-11-9",
+        "end": "2021-01-11-10",
+        "description": "yoga with accompanying sound bath"
+    },
+    {
+        "name_evt": "salt bath meditation",
+        "start": "2021-01-15-9",
+        "end": "2021-01-15-10",
+        "description": "meditation in a salt cave"
+    },
+    {
+        "name_evt": "cold plunge workout",
+        "start": "2021-01-19-11",
+        "end": "2021-01-19-12",
+        "description": "work out followed by ice bath"
+    }
+]

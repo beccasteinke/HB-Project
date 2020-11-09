@@ -1,8 +1,12 @@
-from flask_sqlalchemy import flask_SQLAlchemy
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
+# app = Flask(__name__)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:////fake_data'
 db = SQLAlchemy()
 
-class User(db.model):
+class User(db.Model):
     """Instantiate a user"""
 
     __tablename__ = 'users'
@@ -19,22 +23,23 @@ class User(db.model):
 
 class Business(db.Model):
     """Instantiate a business"""
-# TODO: db type for url and address? Maybe a specific type
+
     __tablename__ = 'businesses'
 
-    org_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    bus_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     bus_name = db.Column(db.String, nullable=False)
-    url = db.Column(db.????, unique=True)
-    address = db.Column(db.???, unique=True)
+    url = db.Column(db.String, unique=True)
+    address = db.Column(db.String, unique=True)
     email = db.Column(db.String, unique=True, nullable=False)
     tel = db.Column(db.String, unique=True)
     description = db.Column(db.Text)
-    service_id = db.Column(db.Integer, db.ForeignKey('services.service_id'))
 
-    service = db.relationship('Service', backref='businesses')
+    # service_id = db.Column(db.Integer, db.ForeignKey('services.service_id'))
+
+    # service = db.relationship('Service', backref='businesses')
 
     def __repr__(self):
-        return f'<Business org_id={self.org_id}, bus_name={self.bus_name}>'
+        return f'<Business bus_id={self.bus_id}, bus_name={self.bus_name}>'
 
 class Service(db.Model):
     """A service a business provides"""
@@ -44,9 +49,6 @@ class Service(db.Model):
     service_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name_serv = db.Column(db.String, nullable=False)
     description = db.Column(db.Text)
-    event_id = db.Column(db.Integer, db.ForeignKey('events.event_id'))
-
-    event = db.relationship('Event', backref='services')
 
     def __repr__(self):
         return f'Service service_id={self.service_id}, name={self.name_serv}>'
@@ -61,30 +63,48 @@ class Event(db.Model):
     name_evt = db.Column(db.String, nullable=False)
     start = db.Column(db.DateTime, nullable=False)
     end = db.Column(db.DateTime, nullable=False)
-    description = db.Column(db.Text)
+    description = db.Column(db.String)
     service_id = db.Column(db.Integer, db.ForeignKey('services.service_id'))
-
-    service = db.relationship('Service', backref='events')
-
-    def __repr__(self):
-        return f'<Event event_id={self.event_id}, event name={self.name_evt}>'
-
-class UserBus(db.Model):
-    """Connecting Users with businessess they favorite"""
-
-    __tablename__ = 'users businessess'
-
-    user_bus_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     bus_id = db.Column(db.Integer, db.ForeignKey('businesses.bus_id'))
 
-    user = db.relationship('User', backref='users businesses')
-    business = db.relationship('Business', backref='users businesses')
+    # service = db.relationship('Service')#, backref='events')
+    # business = db.relationship('Business')#, backref='events')
 
     def __repr__(self):
-        return f'<UserBus user_bus_id={self.user_bus_id}>'
+        return f'<Event event_id={self.event_id}, event name={self.name_evt}, bus_id={self.business}>'
 
-def connect_to_db(flask_app, db_uri='?????', echo=True):
+# class UserBus(db.Model):
+#     """Connecting Users with businessess they favorite"""
+#TODO: Do I need this relationship?
+
+    # __tablename__ = 'users businessess'
+
+    # user_bus_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    # user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    # bus_id = db.Column(db.Integer, db.ForeignKey('businesses.bus_id'))
+
+    # user = db.relationship('User', backref='users businesses')
+    # business = db.relationship('Business', backref='users businesses')
+
+    # def __repr__(self):
+    #     return f'<UserBus user_bus_id={self.user_bus_id}>'
+
+class BusServ(db.Model):
+    """Connecting businesses with types of services they offer"""
+
+    __tablename__ = 'business_services'
+
+    bus_serv_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    bus_id = db.Column(db.Integer, db.ForeignKey('businesses.bus_id'))
+    service_id = db.Column(db.Integer, db.ForeignKey('services.service_id'))
+
+    service = db.relationship('Service', backref='business_services')
+    business = db.relationship('Business', backref='business_services')
+
+    def __repr__(self):
+        return f'<BusServ bus_serv_id={self.bus_serv_id}>'
+
+def connect_to_db(flask_app, db_uri='postgresql:///fake_data', echo=True):
 #  TODO: db_uri???? also not sure how exactly this function works
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     flask_app.config['SQLALCHEMY_ECHO'] = echo

@@ -1,3 +1,5 @@
 env/
 .DS_Store
 project-hw-beccasteinke/
+notes_for_self
+__pycache__

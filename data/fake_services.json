@@ -1,0 +1,42 @@
+[
+    {
+        "name_serv": "bodywork",
+        "description": "Manipulative work involving the physical human body; improving of the body-mind connection"
+    },
+    {
+        "name_serv": "breathwork",
+        "description": "Breathing practices: Conscious control of breath for meditation and well-being"
+    },
+    {
+        "name_serv": "energy work",
+        "description": "Healing through energy channeling, hands-on, hands-off, and distant work. Reiki, crystal healings, and more."
+    },
+    {
+        "name_serv": "fitness",
+        "description": "Improvement of physical fitness and thereby, health and well-being. Classes, personal trainers, and more."
+    },
+    {
+        "name_serv": "halotherapy",
+        "description": "Immersion into a salty air environment. Healing for respiratory and skin conditions"
+    },
+    {
+        "name_serv": "meditation",
+        "description": "Deep relaxation combined with breath and self-awareness for better well-being."
+    },
+    {
+        "name_serv": "mental health",
+        "description": "Mental health therapies, psychotherapy, journey to self-discovery."
+    },
+    {
+        "name_serv": "nutrition",
+        "description": "Feed the body to wellness. Nutritionists, diet curation, lifestyle changes"
+    },
+    {
+        "name_serv": "sound healing",
+        "description": "Healing through the vibrational sounds to relax your mind and body"
+    },
+    {
+        "name_serv": "yoga",
+        "description": "Breath control, meditation, and body movement for overall health improvements"
+    }
+]
