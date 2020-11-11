@@ -19,7 +19,7 @@ def create_user(fname, lname, email, password, tel):
 def get_user_by_email(email):
     """Return a user by email"""
 
-    return User.query.filter(User.email == email).all()
+    return User.query.filter(User.email == email).first()
 
 def check_user_login_info(email, password):
     """check if the users email and password match in the database"""
@@ -47,6 +47,13 @@ def get_businesses():
     """Return all businesses"""
 
     return Business.query.all()
+
+def get_bus_by_id(bus_id):
+    """Return a business by primary key"""
+
+
+    return Business.query.get(bus_id)
+
 
 def create_service(name_serv, description):
     """Create and return a service category"""
