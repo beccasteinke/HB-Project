@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}All Businesses{% endblock %}
+
+{% block body %}
+    <h1>All Businesses</h1>
+
+    <ul>
+        {% for business in all_bus %}
+            <li>
+                <h4>{{ business.bus_name }} - insert business service here
+                </h4>
+                <img src="static/jpeg/{{ business.image }}" width="200" height="150">
+                <p>{{ business.description }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

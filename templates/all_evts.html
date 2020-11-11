@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}All Businesses{% endblock %}
+
+{% block body %}
+    <h1>All Events</h1>
+
+    <ul>
+        {% for event in all_evts %}
+        <!-- TODO: format start and end times to be prettier -->
+            <li>
+                <h4>{{ event.name_evt }}</h4>
+                <p>{{ event.description }}</p>
+                <p>Start Time: {{ event.start }}</p>
+                <p>End Time: {{ event.end }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
