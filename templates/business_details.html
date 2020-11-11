@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ business.bus_name }} - Details{% endblock %}
+
+{% block body %}
+<h2>{{ business.bus_name }} provides {{ business.service.name_serv }} services</h2>
+<h3>{{ business.description }}</h3>
+<h3>Contact Info:</h3>
+<p>Website: {{business.url }}</p>
+<p>Email: {{ business.email }}</p>
+<p>Phone Number: {{ business.tel }}</p>
+
+{% endblock %}
