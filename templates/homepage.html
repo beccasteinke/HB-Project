@@ -1,17 +1,48 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Homepage</title>
-    </head>
-    <body>
-        <h1>Holistic Health Homepage</h1>
-        <h3>Here is some dummy text!</h3>
+{% extends 'base.html' %}
+{% block title %}Holistic Health Home{% endblock %}
 
-    </body>
+{% block body %}
+    <h1>Holistic Health Homepage</h1>
+    <h3>Here is some dummy text!</h3>
 
+    <h3>Login (will float to rt in sidebar)</h3>
+    <form action="/login" method="GET">
+        <p>
+            Email <input type="text" name="email">
+        </p>
 
+        <p>
+            Password <input type="password" name="password">
+        </p>
 
+        <p>
+            <input type="submit">
+        </p>
+    </form>
+    <br>
+    <h3>Create an Account (will float rt in sidebar)</h3>
+<!-- TODO: Send to user db? -->
+    <form action="/register" method="POST">
+        <p>
+            Email <input type="text" name="email" required>
+        </p>
 
-
-
-</html>
+        <p>
+            Password <input type="password" name="password" required>
+        </p>
+        <p>
+            First Name <input type="text" name="fname" required>
+        </p>
+        <p>
+            Last Name <input type="text" name="lname" required>
+        </p>
+        <p>
+            Mobile Number: <input type="tel" id="phone" name="tel"
+            pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+            required>
+        </p>
+        <p>
+            <input type="submit">
+        </p>
+    </form>
+{% endblock %}

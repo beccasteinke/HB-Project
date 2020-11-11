@@ -1,6 +1,6 @@
 """CRUD operations"""
 
-from model import db, User, Business, Service, Event, BusServ, connect_to_db
+from model import db, User, Business, Service, Event, BusServ, BusEvt, connect_to_db
 
 def create_user(fname, lname, email, password, tel):
     """Create and return a new user"""
@@ -16,7 +16,12 @@ def create_user(fname, lname, email, password, tel):
 
     return user
 
-def create_business(bus_name, url, address, email, tel, description):
+def get_user_by_email(email):
+    """Return a user by email"""
+
+    return User.query.filter(User.email == email).all()
+
+def create_business(bus_name, url, address, email, tel, description, image):
     """Create and return a new business"""
 
     business = Business(bus_name=bus_name, 
@@ -24,12 +29,18 @@ def create_business(bus_name, url, address, email, tel, description):
                         address=address, 
                         email=email, 
                         tel=tel, 
-                        description=description)
+                        description=description,
+                        image=image)
     
     db.session.add(business)
     db.session.commit()
 
     return business
+
+def get_businesses():
+    """Return all businesses"""
+
+    return Business.query.all()
 
 def create_service(name_serv, description):
     """Create and return a service category"""
@@ -42,18 +53,25 @@ def create_service(name_serv, description):
 
     return service
 
-def create_event(name_evt, start, end, description):
+def create_event(name_evt, start, end, description, service, business):
     """Create and return an event"""
 
     event = Event(name_evt=name_evt, 
                 start=start,
                 end=end,
-                description=description,)
+                description=description,
+                service=service,
+                business=business)
     
     db.session.add(event)
     db.session.commit()
 
     return event
+
+def get_events():
+    """Return all events"""
+
+    return Event.query.all()
 
 # def create_user_bus(user, business):
     # userbus = UserBus(user=user, business=business)
@@ -66,6 +84,24 @@ def create_bus_serv(service, business):
 
     db.session.add(busserv)
     db.session.commit()
+
+def create_bus_evt(business, event):
+    busevt = BusEvt(business=business, event=event)
+
+    db.session.add(busevt)
+    db.session.commit()
+
+# search service category - get list of businesses
+# get businesses by service
+
+# search business - get list of events and service category
+# get events by business
+# get service category by business
+
+# search event - get business and service
+# get business by event
+# get service by event
+
 
 if __name__ == '__main__':
     from server import app
