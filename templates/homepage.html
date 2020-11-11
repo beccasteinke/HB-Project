@@ -16,13 +16,13 @@
         </p>
 
         <p>
-            <input type="submit">
+            <input type="submit" name="login">
         </p>
     </form>
     <br>
     <h3>Create an Account (will float rt in sidebar)</h3>
 <!-- TODO: Send to user db? -->
-    <form action="/register" method="POST">
+    <form action="/users" method="POST">
         <p>
             Email <input type="text" name="email" required>
         </p>
@@ -37,7 +37,7 @@
             Last Name <input type="text" name="lname" required>
         </p>
         <p>
-            Mobile Number: <input type="tel" id="phone" name="tel"
+            Mobile Number: <input type="tel" id="tel" name="tel"
             pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
             required>
         </p>

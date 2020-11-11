@@ -1,6 +1,6 @@
 """CRUD operations"""
 
-from model import db, User, Business, Service, Event, BusServ, BusEvt, connect_to_db
+from model import db, User, Business, Service, Event, connect_to_db
 
 def create_user(fname, lname, email, password, tel):
     """Create and return a new user"""
@@ -21,7 +21,12 @@ def get_user_by_email(email):
 
     return User.query.filter(User.email == email).all()
 
-def create_business(bus_name, url, address, email, tel, description, image):
+def check_user_login_info(email, password):
+    """check if the users email and password match in the database"""
+
+    return User.query.filter((User.email == email) & (User.password == password)).first()
+
+def create_business(bus_name, url, address, email, tel, description, image, service):
     """Create and return a new business"""
 
     business = Business(bus_name=bus_name, 
@@ -30,7 +35,8 @@ def create_business(bus_name, url, address, email, tel, description, image):
                         email=email, 
                         tel=tel, 
                         description=description,
-                        image=image)
+                        image=image,
+                        service=service)
     
     db.session.add(business)
     db.session.commit()
@@ -79,17 +85,17 @@ def get_events():
 # def create_event_service(service, event):
     # evtservice = EventService(service=service, event=event)
 
-def create_bus_serv(service, business):
-    busserv = BusServ(service=service, business=business)
+# def create_bus_serv(service, business):
+#     busserv = BusServ(service=service, business=business)
 
-    db.session.add(busserv)
-    db.session.commit()
+#     db.session.add(busserv)
+#     db.session.commit()
 
-def create_bus_evt(business, event):
-    busevt = BusEvt(business=business, event=event)
+# def create_bus_evt(business, event):
+#     busevt = BusEvt(business=business, event=event)
 
-    db.session.add(busevt)
-    db.session.commit()
+#     db.session.add(busevt)
+#     db.session.commit()
 
 # search service category - get list of businesses
 # get businesses by service

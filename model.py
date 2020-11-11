@@ -34,10 +34,9 @@ class Business(db.Model):
     tel = db.Column(db.String, unique=True)
     description = db.Column(db.Text)
     image = db.Column(db.String)
-
-    # service_id = db.Column(db.Integer, db.ForeignKey('services.service_id'))
-
-    # service = db.relationship('Service', backref='businesses')
+    service_id = db.Column(db.Integer, db.ForeignKey('services.service_id'))
+ 
+    service = db.relationship('Service', backref='businesses')
 
     def __repr__(self):
         return f'<Business bus_id={self.bus_id}, bus_name={self.bus_name}>'
@@ -69,7 +68,7 @@ class Event(db.Model):
     bus_id = db.Column(db.Integer, db.ForeignKey('businesses.bus_id'))
 
     service = db.relationship('Service')#, backref='events')
-    business = db.relationship('Business')#, backref='events')
+    business = db.relationship('Business', backref='events') # can call business.events
 
     def __repr__(self):
         return f'<Event event_id={self.event_id}, event name={self.name_evt}, bus_id={self.business}>'
@@ -90,35 +89,35 @@ class Event(db.Model):
     # def __repr__(self):
     #     return f'<UserBus user_bus_id={self.user_bus_id}>'
 
-class BusServ(db.Model):
-    """Connecting businesses with types of services they offer"""
+# class BusServ(db.Model):
+#     """Connecting businesses with types of services they offer"""
 
-    __tablename__ = 'business_services'
+#     __tablename__ = 'business_services'
 
-    bus_serv_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    bus_id = db.Column(db.Integer, db.ForeignKey('businesses.bus_id'))
-    service_id = db.Column(db.Integer, db.ForeignKey('services.service_id'))
+#     bus_serv_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+#     bus_id = db.Column(db.Integer, db.ForeignKey('businesses.bus_id'))
+#     service_id = db.Column(db.Integer, db.ForeignKey('services.service_id'))
 
-    service = db.relationship('Service', backref='business_services')
-    business = db.relationship('Business', backref='business_services')
+#     service = db.relationship('Service', backref='business_services')
+#     business = db.relationship('Business', backref='business_services')
 
-    def __repr__(self):
-        return f'<BusServ bus_serv_id={self.bus_serv_id}>'
+#     def __repr__(self):
+#         return f'<BusServ bus_serv_id={self.bus_serv_id}>'
 
-class BusEvt(db.Model):
-    """Connecting businesses with the events they are offering"""
+# class BusEvt(db.Model):
+#     """Connecting businesses with the events they are offering"""
 
-    __tablename__ = 'business_events'
+#     __tablename__ = 'business_events'
 
-    bus_evt_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    bus_id = db.Column(db.Integer, db.ForeignKey('businesses.bus_id'))
-    event_id = db.Column(db.Integer, db.ForeignKey('events.event_id'))
+#     bus_evt_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+#     bus_id = db.Column(db.Integer, db.ForeignKey('businesses.bus_id'))
+#     event_id = db.Column(db.Integer, db.ForeignKey('events.event_id'))
 
-    business = db.relationship('Business', backref='business_events')
-    event = db.relationship('Event', backref='business_events')
+#     business = db.relationship('Business')#, backref='business_events')
+#     event = db.relationship('Event')#, backref='business_events')
 
-    def __repr__(self):
-        return f'<BusEvt bus_evt_id={self.bus_evt_id}>'
+#     def __repr__(self):
+#         return f'<BusEvt bus_evt_id={self.bus_evt_id}>'
 
 def connect_to_db(flask_app, db_uri='postgresql:///fake_data', echo=True):
 #  TODO: db_uri???? also not sure how exactly this function works

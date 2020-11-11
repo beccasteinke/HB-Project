@@ -41,44 +41,55 @@ def all_evts():
 
     return render_template('all_evts.html', all_evts=all_evts)
 
-@app.route('/login')
-def login_user():
+@app.route('/profile')
+def profile():
+    """Show a user's profile"""
+
+    return render_template('user_profile.html')
+
+@app.route('/login', methods=['POST', 'GET'])
+def user_login():
+    """Log a user into the website"""
+
     email = request.form.get('email')
     password = request.form.get('password')
 
-    user = crud.get_user_by_email(email)
-    if user:
-        return "This email is registered, you are logged in"
-        # return 'A user already exists with that email.'
-    else:
-        # flash("This email is not registered. Create an account")
-        return redirect('/')
+    user = crud.check_user_login_info(email, password)
+    print(user)
 
-@app.route('/register', methods=['POST', 'GET'])
-def check_user():
-    email = request.form.get('email')
-    password = request.form.get('password')
-
-    user = crud.get_user_by_email(email)
-    if user:
-        return "This email is registered, you are now logged in"
-    else:
-        def register_user():
-            fname = request.form['fname']
-            lname = request.form['lname']
-            email = request.form['email']
-            password = request.form['password']
-            tel = request.form['tel']
-
-    # if user:
-    #     return "A user already exists with that email"
+    # if "user_id" not in session:
+    #     session["user_id"] = user.user_id
     # else:
-    #     crud.create_user(fname, lname, email, password, tel)
+    #     active_user = session.get("user_id")
 
-    return render_template('register-form.html')
-        # create_user(email, password)
+    if user:
+        flash("Successful login")
+    else:
+        flash("Login info incorrect, please try again")
+    
+    return redirect('/')
 
-        # return redirect('/login-form')
+# @app.route('/login', methods=['POST', 'GET'])
+# def register_user():
+#     """Register a new user"""
+
+#     email = request.form.get('email')
+#     password = request.form.get('password')
+#     fname = request.form.get('fname')
+#     lname = request.form.get('lname')
+#     tel = request.form.get('tel')
+
+#     user = crud.get_user_by_email(email)
+    
+#     """Check to see if user is already in database"""
+#     if user:
+#         flash("This email already exists. Try again")
+#     else:
+#         crud.create_user(fname, lname, email, password, tel)
+#         flash("Your account was created successfully")
+
+#     return redirect('/')
+
 
 if __name__ == '__main__':
     connect_to_db(app)
