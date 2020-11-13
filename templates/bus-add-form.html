@@ -1,0 +1,53 @@
+<!-- Create a registration form for a business -->
+
+{% extends 'base.html' %}
+{% block title %}Business Registration{% endblock %}
+
+{% block body %}
+    <h1>Please Create a Business Account</h1>
+    <form action="/business-registration" method="POST">
+        <p>
+            Business Name <input type="text" name="bus_name" required>
+        </p>
+        <p>
+            Services Provided: 
+                <select id="service" name="name_serv">
+                    <option value="bodywork">Bodywork</option>
+                    <option value="breathwork">Breathwork</option>
+                    <option value="energy-work">Energy Work</option>
+                    <option value="fitness">Fitness</option>
+                    <option value="halotherapy">Halotherapy</option>
+                    <option value="meditation">Meditation</option>
+                    <option value="mental-health">Mental Health</option>
+                    <option value="nutrition">Nutrition</option>
+                    <option value="sound-healing">Sound Healing</option>
+                    <option value="yoga">Yoga</option>
+                </select> 
+        </p>
+        <p>
+            Description <input type="text" name="description" required>
+        </p>
+        <p>
+            Website <input type="text" name="url" required>
+        </p>
+        <p>
+            Address <input type="text" name="address" required>
+        </p>
+        <p>
+            Email <input type="text" name="email" required>
+        </p>
+        <p>
+            Phone: <input type="tel" id="phone" name="tel"
+            pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+            required>
+        </p>
+        <p>
+            Image Upload: <input type="text" name="image" required>
+        </p>
+
+        <p>
+            <input type="submit">
+        </p>
+    </form>
+
+    {% endblock %}

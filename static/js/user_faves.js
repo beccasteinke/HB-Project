@@ -25,6 +25,7 @@
 // TODO: when clicked twice, the button changes to two checkmarks
 function changeIcon(evt) {
     evt.target.className="far fa-check-circle";
+    alert("Event added to profile!")
 }
 
 const allIcons = document.querySelectorAll('.fave-btn')

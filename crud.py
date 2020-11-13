@@ -53,6 +53,11 @@ def get_businesses():
 
     return Business.query.all()
 
+def get_bus_by_email(email):
+    """Return a business by email"""
+
+    return Business.query.filter(Business.email == email).first()
+
 def get_bus_by_id(bus_id):
     """Return a business by primary key"""
 

@@ -45,6 +45,49 @@ def all_businesses():
 
     return render_template('all_businesses.html', all_bus=all_bus)
 
+@app.route('/add-business')
+def add_bus():
+    """View add business page"""
+
+    return render_template('bus-add-form.html')
+
+# TODO: service isn't quite matching up. 
+# Need to take the service input and turn it into a service id, so I can add it to the DB
+@app.route('/business-registration', methods=['POST'])
+def register_bus():
+    """add a business to the business table in the db"""
+
+    bus_name = request.form.get('bus_name')
+    url = request.form.get('url')
+    address = request.form.get('address')
+    email = request.form.get('email')
+    tel = request.form.get('tel')
+    description = request.form.get('description')
+    image = request.form.get('image')
+    service = request.form.get('name_serv')
+
+    bus = crud.get_bus_by_email(email)
+    # Check to see if user exists in db already
+
+    if bus:
+        flash('This business already exists.')
+        return redirect('/business-registration')
+    else:
+        if service == 'bodywork':
+            service_id = "1"
+        elif service == 'breathwork':
+            service_id = 2
+        elif service == 'energy-work':
+            service_id = 3
+
+        bus = crud.create_business(bus_name, url, address, email, tel, description, image, service_id)
+
+        # add the user to the session:
+        # session["user_id"] = user.user_id
+        flash('Account created sucessfully! Please log in')
+
+        return render_template('login.html')
+
 @app.route('/directory/<bus_id>')
 # TODO: potentially change this so its directory/bus_name through a different query (.filter or.filter_by)
 def show_business(bus_id):
@@ -110,6 +153,17 @@ def all_evts():
     all_evts = crud.get_events()
 
     return render_template('all_evts.html', all_evts=all_evts)
+
+
+# TODO: make this do the thing its supposed to do
+@app.route('/events/<bus_id>')
+def show_bus_evts(bus_id):
+
+    all_bus_evts = crud.get_evt_by_bus(bus_id)
+    # add to UserBus
+
+    return render_template('evts_by_bus.html', bus_id=bus_id)
+
 
 @app.route('/profile')
 def profile():
