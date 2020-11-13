@@ -21,38 +21,34 @@
 
 
 
-
-
 // Change icon when button clicked
-
+// TODO: when clicked twice, the button changes to two checkmarks
 function changeIcon(evt) {
     evt.target.className="far fa-check-circle";
 }
 
-const allBtns = document.querySelectorAll('.fave-btn')
+const allIcons = document.querySelectorAll('.fave-btn')
 
-for (const btn of allBtns) {
-    btn.addEventListener('click', changeIcon)
+for (const icon of allIcons) {
+    icon.addEventListener('click', changeIcon)
 }
+const iconId = icon.attr('id');
+// const formData = {
+//     user_id: $()
+// }
+
+$.get('/directory', (data) => {
+    alert(data)
+})
+
+// $.post('/add-favorite', iconId, (response) => {
+//     alert(response)
+// })
 
 // now I need to update the DB with id with button clicked
-
-
-
-
-// $('button.fave-btn').on('click', (evt) => {
-// const button = $(evt.target);
-// const buttonId = button.attr('id'); // the button is now the bus_id
-//         $('.fas fa-heart').attr('class', 'far fa-check-circle')
-
-// });
 // on click, add bus_id(buttonId) to userbus table associated with user_id
-// )});
 
 
-
-// getting button by the class fave-btn, then getting it by the id
-// because for each id, we want to do the same thing, basically
 
 // $('button.fave-btn').on('click', (evt) => {
 //     const button = $(evt.target);

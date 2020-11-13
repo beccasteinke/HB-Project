@@ -91,6 +91,11 @@ def get_events():
 
     return Event.query.all()
 
+def get_evt_by_bus(bus_id):
+    """Return all events matching a bus_id"""
+
+    return Event.query.filter_by(bus_id=bus_id).all()
+
 def create_userbus(user, business):
     """add a user's favorite business to their profile"""
 
