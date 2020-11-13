@@ -13,12 +13,18 @@ app.jinja_env.undefined = StrictUndefined
 @app.route('/')
 def homepage():
     """return homepage template"""
+    user_id = session.get("user_id")
+    if user_id:
+        flash(user_id)
 
     return render_template('homepage.html')
 
 @app.route('/signin')
 def signin():
     """View login page"""
+    user_id = session.get("user_id")
+    if user_id:
+        flash(user_id)
 
     return render_template('login.html')
 
@@ -32,7 +38,8 @@ def add_user():
 def all_businesses():
     """View all businesses"""
     user_id = session.get("user_id")
-    flash(user_id)
+    if user_id:
+        flash(user_id)
     # bus_id = need to get bus
     all_bus = crud.get_businesses()
 
@@ -133,12 +140,14 @@ def show_faves():
         flash('Please sign in')
         return render_templated('login.html')
 
+@app.route('/add-favorite', methods=['POST', 'GET'])
+def add_fave():
 
-    # query into users_buss by id, to get out the bus_id.all()
-    # query to see all of the bus_id's connected with a single user_id
-    # UserBus.bus_id.all()
-    # user.bus_id.all()
-    # take those bus_id's and show the name of the business and link to bus page
+    user_id = session.get("user_id")
+    # bus_id = 
+
+    if user_id:
+        fave = crud.create_userbus(user_id, bus_id)
 
 
 

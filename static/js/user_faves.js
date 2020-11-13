@@ -18,16 +18,36 @@
 
 
 // })
-$('button.fave-btn').on('click', (evt) => {
-    const button = $(evt.target);
-    const buttonId = button.attr('id'); // the button is now the bus_id
-    // alert("heloo")
-    $.get('/directory', (data) => {
-        // $('#user-faves').append(bus_id);
-        alert(data);
 
+
+
+
+
+// Change icon when button clicked
+
+function changeIcon(evt) {
+    evt.target.className="far fa-check-circle";
+}
+
+const allBtns = document.querySelectorAll('.fave-btn')
+
+for (const btn of allBtns) {
+    btn.addEventListener('click', changeIcon)
+}
+
+// now I need to update the DB with id with button clicked
+
+
+
+
+// $('button.fave-btn').on('click', (evt) => {
+// const button = $(evt.target);
+// const buttonId = button.attr('id'); // the button is now the bus_id
+//         $('.fas fa-heart').attr('class', 'far fa-check-circle')
+
+// });
 // on click, add bus_id(buttonId) to userbus table associated with user_id
-})});
+// )});
 
 
 
