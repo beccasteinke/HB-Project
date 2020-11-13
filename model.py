@@ -35,6 +35,8 @@ class Business(db.Model):
     description = db.Column(db.Text)
     image = db.Column(db.String)
     service_id = db.Column(db.Integer, db.ForeignKey('services.service_id'))
+
+    users = db.relationship("User", secondary="users_buss", backref="businesses")
  
     service = db.relationship('Service', backref='businesses')
 
@@ -73,21 +75,20 @@ class Event(db.Model):
     def __repr__(self):
         return f'<Event event_id={self.event_id}, event name={self.name_evt}, bus_id={self.business}>'
 
-# class UserBus(db.Model):
-#     """Connecting Users with businessess they favorite"""
-#TODO: Do I need this relationship?
+class UserBus(db.Model):
+    """Connecting Users with businessess they favorite"""
 
-    # __tablename__ = 'users businessess'
+    __tablename__ = 'users_buss'
 
-    # user_bus_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    # user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    # bus_id = db.Column(db.Integer, db.ForeignKey('businesses.bus_id'))
+    user_bus_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    bus_id = db.Column(db.Integer, db.ForeignKey('businesses.bus_id'), nullable=False)
 
-    # user = db.relationship('User', backref='users businesses')
-    # business = db.relationship('Business', backref='users businesses')
+    user = db.relationship('User', backref='users_buss')
+    business = db.relationship('Business', backref='users_buss')
 
-    # def __repr__(self):
-    #     return f'<UserBus user_bus_id={self.user_bus_id}>'
+    def __repr__(self):
+        return f'<business={self.business}>'
 
 # class BusServ(db.Model):
 #     """Connecting businesses with types of services they offer"""

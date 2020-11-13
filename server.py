@@ -31,7 +31,9 @@ def add_user():
 @app.route('/directory')
 def all_businesses():
     """View all businesses"""
-
+    user_id = session.get("user_id")
+    flash(user_id)
+    # bus_id = need to get bus
     all_bus = crud.get_businesses()
 
     return render_template('all_businesses.html', all_bus=all_bus)
@@ -61,14 +63,6 @@ def login_user():
     else:
         flash('Login info is incorrect, try again.')
         return redirect('/signin')
-        # return render_template('register-form.html')
-        # fname = request.form['fname']
-        # lname = request.form['lname']
-        # email = request.form['email']
-        # password = request.form['password']
-        # tel = request.form['tel']
-        # crud.create_user(email, password, fname, lname, tel)
-        # flash('Account created! Please log in')
     
 
 @app.route('/user-registration', methods=['POST'])
@@ -88,11 +82,11 @@ def register_user():
         flash('This email already exists. Log in or try again.')
         return redirect('/user-registration')
     else:
-        user = crud.create_user(email, password, fname, lname, tel)
+        user = crud.create_user(fname, lname, email, password, tel)
 
         # add the user to the session:
-        session["user_id"] = user.user_id
-        flash('Account created sucessfully!')
+        # session["user_id"] = user.user_id
+        flash('Account created sucessfully! Please log in')
 
         return render_template('login.html')
 
@@ -113,8 +107,38 @@ def all_evts():
 @app.route('/profile')
 def profile():
     """Show a user's profile"""
+    user_id = session.get("user_id")
 
-    return render_template('user_profile.html')
+    if user_id:
+        user = crud.get_user_by_id(user_id)
+        return render_template('user_profile.html', user=user)
+    
+    else:
+        flash('Please sign in')
+        return render_templated('login.html')
+
+@app.route('/user-favorites')
+def show_faves():
+    """show a list of a user's favorited businesses"""
+
+    user_id = session.get("user_id")
+
+    if user_id:
+        user = crud.get_user_by_id(user_id)
+        joined_faves = crud.get_bus_by_user_id(user_id)
+
+        return render_template('favorites.html', user=user, joined_faves=joined_faves)
+    
+    else:
+        flash('Please sign in')
+        return render_templated('login.html')
+
+
+    # query into users_buss by id, to get out the bus_id.all()
+    # query to see all of the bus_id's connected with a single user_id
+    # UserBus.bus_id.all()
+    # user.bus_id.all()
+    # take those bus_id's and show the name of the business and link to bus page
 
 
 

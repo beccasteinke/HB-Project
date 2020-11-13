@@ -7,7 +7,7 @@
     <ul>
         {% for business in all_bus %}
             <li>
-                <h4>{{ business.bus_name }} - {{ business.service.name_serv }}</h4>
+                <h4>{{ business.bus_name }} - {{ business.service.name_serv }} ---- <button class="fave-btn" id="{{ business.bus_id }}"><i class="fas fa-heart"></i></button></h4>
                 <h2><a href="/directory/{{ business.bus_id }}">more info</a></h2>
                 <img src="static/jpeg/{{ business.image }}" width="200" height="150">
                 <p>{{ business.description }}</p>
@@ -16,4 +16,5 @@
             </li>
         {% endfor %}
     </ul>
+    <script src="/static/js/user_faves.js"></script>
 {% endblock %}

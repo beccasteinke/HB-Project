@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Holistic Health - Favorites{% endblock %}
+
+{% block body %}
+<h1>{{ user.fname }}'s Favorite Businesses</h1>
+
+<ul id="user-faves">
+    {% for fave in joined_faves %}
+            <li>
+                <p>{{ fave }}</p>
+            </li>
+    {% endfor %}
+
+</ul>
+  
+{% endblock %}

@@ -1,6 +1,6 @@
 import os
 import json
-from random import choice
+from random import choice, sample
 from datetime import datetime
 
 import crud
@@ -13,9 +13,11 @@ os.system('createdb fake_data')
 model.connect_to_db(server.app)
 model.db.create_all()
 
+# Load service data from JSON file
 with open('data/fake_services.json') as f:
     service_data = json.loads(f.read())
 
+# create services and store in a list
 servs_in_db = []
 for service in service_data:
     name_serv, description = (service['name_serv'], service['description'])
@@ -55,19 +57,14 @@ for n in range(10):
 
     user = crud.create_user(fname, lname, email, password, tel)
 
-# Create service categories with fake data
-# with open('data/fake_services.json') as f:
-#     service_data = json.loads(f.read())
+    # Create the users_buss table
+    # Take a random sample from the list of businesses to create a random business list
 
-# servs_in_db = []
-# for service in service_data:
-#     name_serv, description = (service['name_serv'], service['description'])
-
-#     db_service = crud.create_service(name_serv, description)
-
-#     servs_in_db.append(db_service)
-
-# f.close()
+    random_bus_list = sample(buss_in_db, 3)
+    
+    # For each business in the random list, assign favorite businesses to each user
+    for bus_id in random_bus_list:
+        crud.create_userbus(user, bus_id)
 
 # Create 2 fake events for each business
 with open('data/fake_events.json') as e:
@@ -89,6 +86,30 @@ for event in event_data:
     db_event = crud.create_event(name_evt, start, end, description, service, business)
 
     evts_in_db.append(db_event)
+
+
+
+
+
+
+
+
+
+# Create service categories with fake data
+# with open('data/fake_services.json') as f:
+#     service_data = json.loads(f.read())
+
+# servs_in_db = []
+# for service in service_data:
+#     name_serv, description = (service['name_serv'], service['description'])
+
+#     db_service = crud.create_service(name_serv, description)
+
+#     servs_in_db.append(db_service)
+
+# f.close()
+
+
 
 # e.close()
 

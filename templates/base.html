@@ -3,6 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script
+      src="http://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"></script>
 
     <title>
       {% block title %}{% endblock %}
@@ -15,7 +19,11 @@
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 
+      <!-- Load Font Awesome -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css">
+
       <!-- TODO: Load our stylesheet -->
+
 
   </head>
   <body>
@@ -25,7 +33,7 @@
         {{ msg }}
       </p>
     {% endfor %}
-    
+
     <!-- Bootstrap basic navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="/">Holistic Home</a>
@@ -47,10 +55,10 @@
         <span class="navbar-text">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="/register">Create an Account</a>
+              <a class="nav-link" href="/add-user">Create an Account</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Favorites</a>
+              <a class="nav-link" href="/user-favorites">Favorites</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Settings</a>
@@ -62,9 +70,10 @@
         </span>
       </div>
     </nav>
+    <script src="http://code.jquery.com/jquery.js"></script>
     {% block body %}{% endblock %}
     {% block after_body %}{% endblock %}
 
-   
+
 </body>
 </html>

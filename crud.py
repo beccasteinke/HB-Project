@@ -1,6 +1,6 @@
 """CRUD operations"""
 
-from model import db, User, Business, Service, Event, connect_to_db
+from model import db, User, Business, Service, Event, UserBus, connect_to_db
 
 def create_user(fname, lname, email, password, tel):
     """Create and return a new user"""
@@ -20,6 +20,11 @@ def get_user_by_email(email):
     """Return a user by email"""
 
     return User.query.filter(User.email == email).first()
+
+def get_user_by_id(user_id):
+    """Return a user by user_id"""
+
+    return User.query.filter(User.user_id == user_id).first()
 
 def check_user_login_info(email, password):
     """check if the users email and password match in the database"""
@@ -85,6 +90,43 @@ def get_events():
     """Return all events"""
 
     return Event.query.all()
+
+def create_userbus(user, business):
+    """add a user's favorite business to their profile"""
+
+    userbus = UserBus(user=user, business=business)
+
+    db.session.add(userbus)
+    db.session.commit()
+
+    return userbus
+
+# def add_fav_bus(user_id, bus_id):
+
+    # in server user_id = session.get("user_id")
+    # bus_id linked to bus page?
+    # fave_bus = UserBus()
+
+def get_bus_by_user_id(user_id):
+    """find bus_name from bus_id's connected to user accounts"""
+
+    bus_ids = db.session.query(UserBus.bus_id).filter_by(user_id=user_id)
+
+    faves_list = []
+    for bus in bus_ids:
+        faves_list.append(db.session.query(Business.bus_name).filter_by(bus_id=bus.bus_id).all())
+ 
+    remove_content = ["[", "(", "]", ")", "',", "'"]
+    faves_str = repr(faves_list)
+
+    for content in remove_content:
+        faves_str = faves_str.replace(content, '')
+    joined_faves = faves_str.split(",")
+
+    return joined_faves
+
+# [[('Norton Fitness',)], [('Wise Nutrition',)], [('Ronald Reiki',)]]
+
 
 # def create_user_bus(user, business):
     # userbus = UserBus(user=user, business=business)
