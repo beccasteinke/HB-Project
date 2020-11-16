@@ -31,7 +31,7 @@ def check_user_login_info(email, password):
 
     return User.query.filter((User.email == email) & (User.password == password)).first()
 
-def create_business(bus_name, url, address, email, tel, description, image, service):
+def create_business(bus_name, url, address, email, tel, description, image, service, bus_passwrd):
     """Create and return a new business"""
 
     business = Business(bus_name=bus_name, 
@@ -41,12 +41,33 @@ def create_business(bus_name, url, address, email, tel, description, image, serv
                         tel=tel, 
                         description=description,
                         image=image,
-                        service=service)
+                        service=service,
+                        bus_passwrd=bus_passwrd)
     
     db.session.add(business)
     db.session.commit()
 
     return business
+
+def add_new_business(bus_name, url, address, email, tel, description, image, service_id, bus_passwrd):
+
+    new_bus = Business(bus_name=bus_name,
+                        url=url,
+                        address=address,
+                        email=email, 
+                        tel=tel, 
+                        description=description,
+                        image=image,
+                        service_id=service_id,
+                        bus_passwrd=bus_passwrd)
+
+    db.session.add(new_bus)
+    db.session.commit()
+
+def check_bus_login_info(email, bus_passwrd):
+    """check if the business email and password match in the database"""
+
+    return Business.query.filter((Business.email == email) & (Business.bus_passwrd == bus_passwrd)).first()
 
 def get_businesses():
     """Return all businesses"""
@@ -61,9 +82,12 @@ def get_bus_by_email(email):
 def get_bus_by_id(bus_id):
     """Return a business by primary key"""
 
-
     return Business.query.get(bus_id)
 
+def get_bus_evts(bus_id):
+    """Return a list of events by business id"""
+
+    return Event.query.filter_by(bus_id=bus_id).all()
 
 def create_service(name_serv, description):
     """Create and return a service category"""
@@ -111,6 +135,21 @@ def create_userbus(user, business):
 
     return userbus
 
+def add_new_userbus(user, business):
+    """allow user to add new userbus to db"""
+
+    userbus = UserBus(user=user, business=business)
+
+    db.session.add(userbus)
+    db.session.commit()
+
+    return userbus
+
+def check_userbus_info(user_id, business_id):
+    """check if the user and business exist in the database"""
+
+    return UserBus.query.filter((UserBus.user_id == user_id) & (UserBus.bus_id == bus_id)).first()
+
 # def add_fav_bus(user_id, bus_id):
 
     # in server user_id = session.get("user_id")
@@ -135,11 +174,20 @@ def get_bus_by_user_id(user_id):
 
     return joined_faves
 
-# [[('Norton Fitness',)], [('Wise Nutrition',)], [('Ronald Reiki',)]]
 
 
-# def create_user_bus(user, business):
-    # userbus = UserBus(user=user, business=business)
+
+
+
+
+
+
+
+
+
+
+
+
 
 # def create_event_service(service, event):
     # evtservice = EventService(service=service, event=event)

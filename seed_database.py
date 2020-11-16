@@ -40,9 +40,13 @@ for business in business_data:
     for service in range(10):
         service=choice(servs_in_db)
 
+# TODO: turn password into a randomly generated busspass#
+    bus_passwrd = "buspass"
+
+
     db_business = crud.create_business(bus_name, url,
                                         address, email,
-                                        tel, description, image, service)
+                                        tel, description, image, service, bus_passwrd)
     buss_in_db.append(db_business)
 
 # b.close()

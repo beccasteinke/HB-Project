@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Holistic Health - Login {% endblock %}
+
+{% block body %}
+
+<h1>Welcome!</h1>
+<br><br>
+
+<p>Log Into your Business Account</p>
+<form action="/business-login" method="POST">
+    <p>
+        Email <input type="text" name="email">
+    </p>
+    <p>
+        Password <input type="password" name="bus-passwrd">
+    </p>
+    <p>
+        <input type="submit" id="bus-login-submit" name="bus-login">
+    </p>
+</form>
+<p>Don't have a listing yet? <a href="/add-business">Create a business account</a></p>
+
+{% endblock %}

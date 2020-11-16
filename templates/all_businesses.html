@@ -7,7 +7,8 @@
     <ul>
         {% for business in all_bus %}
             <div id="business{{ business.bus_id }}">
-                <h4>{{ business.bus_name }} - {{ business.service.name_serv }} ---- <button class="fave-btn" id="{{ business.bus_id }}"><i class="fas fa-heart"></i></button></h4>
+                <div id="bus-name-fave"><h4>{{ business.bus_name }} - {{ business.service.name_serv }} ---- <form action="/add-favorite/{{ business.bus_id }}", method='POST'><input type="image" class="fave-btn" id="{{ business.bus_id }}" src="/static/icons/heart-50.png"
+                    name="{{ business.bus_id }}"></input></form></h4></div>
                 <h2><a href="/directory/{{ business.bus_id }}">more info</a></h2>
                 <img src="static/jpeg/{{ business.image }}" width="200" height="150">
                 <p>{{ business.description }}</p>

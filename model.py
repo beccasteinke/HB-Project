@@ -31,6 +31,7 @@ class Business(db.Model):
     url = db.Column(db.String, unique=True)
     address = db.Column(db.String, unique=True)
     email = db.Column(db.String, unique=True, nullable=False)
+    bus_passwrd = db.Column(db.String, nullable=False)
     tel = db.Column(db.String, unique=True)
     description = db.Column(db.Text)
     image = db.Column(db.String)
@@ -69,7 +70,7 @@ class Event(db.Model):
     service_id = db.Column(db.Integer, db.ForeignKey('services.service_id'))
     bus_id = db.Column(db.Integer, db.ForeignKey('businesses.bus_id'))
 
-    service = db.relationship('Service')#, backref='events')
+    service = db.relationship('Service', backref='events') # can call service.events
     business = db.relationship('Business', backref='events') # can call business.events
 
     def __repr__(self):
