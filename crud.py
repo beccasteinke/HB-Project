@@ -100,6 +100,11 @@ def create_service(name_serv, description):
 
     return service
 
+def get_servs():
+    """Return all services"""
+
+    return Service.query.all()
+
 def create_event(name_evt, start, end, description, service, business):
     """Create and return an event"""
 

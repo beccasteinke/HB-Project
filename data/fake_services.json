@@ -38,5 +38,9 @@
     {
         "name_serv": "yoga",
         "description": "Breath control, meditation, and body movement for overall health improvements"
+    },
+    {
+        "name_serv": "other",
+        "description": "Other service - contact business for more details."
     }
 ]

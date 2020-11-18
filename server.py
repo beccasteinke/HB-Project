@@ -44,7 +44,9 @@ def all_businesses():
     # bus_id = need to get bus
     all_bus = crud.get_businesses()
 
-    return render_template('all_businesses.html', all_bus=all_bus)
+    all_servs = crud.get_servs()
+
+    return render_template('all_businesses.html', all_bus=all_bus, all_servs=all_servs)
 
 @app.route('/add-business')
 def add_bus():
@@ -120,8 +122,8 @@ def show_search():
 def login_bus():
     """Log a business into the website"""
 
-    email = request.form.get('email')
-    bus_passwrd = request.form.get('bus_passwrd')
+    email = request.form.get('bus-email')
+    bus_passwrd = request.form.get('bus-passwrd')
 
     business = crud.check_bus_login_info(email, bus_passwrd)
 
@@ -133,6 +135,19 @@ def login_bus():
         flash('Login info is incorrect, try again.')
         return redirect('/business-signin')
 
+@app.route('/business-profile')
+def show_bus_profile():
+    """Show a business profile"""
+    bus_id = session.get("bus_id")
+
+    if bus_id:
+        business = crud.get_bus_by_id(bus_id)
+        return render_template('bus_profile.html', business=business)
+    
+    else:
+        flash('Please sign in')
+        return render_template('login.html')
+
 @app.route('/directory/<bus_id>')
 # TODO: potentially change this so its directory/bus_name through a different query (.filter or.filter_by)
 def show_business(bus_id):
@@ -141,6 +156,15 @@ def show_business(bus_id):
     business = crud.get_bus_by_id(bus_id)
 
     return render_template('/business_details.html', business=business)
+
+@app.route('/events/<bus_id>')
+# TODO: potentially change this so its directory/bus_name through a different query (.filter or.filter_by)
+def show_evts(bus_id):
+    """Show events being put on by a particular business"""
+
+    events = crud.get_bus_evts(bus_id)
+
+    return render_template('/business_events.html', events=events)
 
 @app.route('/login', methods=['POST'])
 def login_user():
@@ -221,7 +245,7 @@ def profile():
     
     else:
         flash('Please sign in')
-        return render_templated('login.html')
+        return render_template('login.html')
 
 @app.route('/user-favorites')
 def show_faves():

@@ -1,10 +1,19 @@
 {% extends 'base.html' %}
 {% block title %}Holistic Search{% endblock %}
 
+{% block head %}
+<!-- <link rel="stylesheet" href="/static/css/maps.css"/> -->
+<!-- <script src="/static/js/mapsInit.js"></script> -->
+
+<!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3tblUXrTzlbHJJPm5lI_gc6bJ5G1IEcs&callback=initMap">
+</script> -->
+{% endblock %}
+
 {% block body %}
-<script src="/static/js/mapsInit.js"></script>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDefeH8yJcg1S44KvgzxPYzBRY1N4R38wY&callback=show_search">
-</script>
-
+  <main>
+    <section class="map">
+      <div id="map"></div>
+    </section>
+  </main>
 {% endblock %}

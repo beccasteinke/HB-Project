@@ -3,6 +3,12 @@
 
 {% block body %}
     <h1>All Businesses</h1>
+    <div id="service-box">
+        {% for service in all_servs %}
+            <button id="{{ service.service_id }}">{{ service.name_serv }}</button>
+        {% endfor %}
+
+    </div>
 
     <ul>
         {% for business in all_bus %}
