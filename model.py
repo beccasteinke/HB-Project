@@ -40,6 +40,7 @@ class Business(db.Model):
     users = db.relationship("User", secondary="users_buss", backref="businesses")
  
     service = db.relationship('Service', backref='businesses')
+    event = db.relationship('Event', backref='businesses')
 
     def __repr__(self):
         return f'<Business bus_id={self.bus_id}, bus_name={self.bus_name}>'

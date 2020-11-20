@@ -81,6 +81,8 @@ def all_businesses():
 
     all_servs = crud.get_servs()
 
+    # evts_bus = crud.get_evt_by_bus(bus_id)
+
     return render_template('all_businesses.html', all_bus=all_bus, all_servs=all_servs)
 
 @app.route('/add-business')
@@ -263,6 +265,25 @@ def show_bus_evts(bus_id):
 
     return render_template('evts_by_bus.html', bus_id=bus_id)
 
+#TODO: finish this route
+"""
+@app.route('/add-event', methods=['POST'])
+def add_event():
+    add a new event to the business's profile and db
+
+    new_evt = crud.create_event(name_evt, start, end, description, service, business)
+    
+    name_evt = request.form.get('name_evt')
+    #TODO: maybe have a nice time form
+    start = request.form.get('start')
+    end = request.form.get('end')
+    description = request.form.get('description')
+    #TODO might run into service option problems
+    service = request.form.get('service')
+    business = #get bus_id from session?
+
+    return redirect('/')
+"""
 
 @app.route('/profile')
 def profile():

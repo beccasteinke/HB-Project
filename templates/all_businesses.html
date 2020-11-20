@@ -25,13 +25,15 @@
                 <img src="static/jpeg/{{ business.image }}" width="200" height="150">
                 <p>{{ business.description }}</p>
                 <br>
-                <button id="upcomingEvtsModalBtn">Upcoming Events</button>
+                <button class ="evtsModalBtn" id="upcomingEvtsModalBtn{{ business.bus_id }}">Upcoming Events</button>
                 <div id="myEvtsModal" class="modal">
     
                     <!-- Modal content -->
                     <div class="modal-content">
                       <span class="close">&times;</span>
-                      <p>{{ business.}}</p>
+                      <!-- Showing event object, need to show good info now -->
+                      <!-- Maybe get events by bus_id in server -->
+                      <p>{{ business.event }}</p>
                     </div>
                   
                   </div>

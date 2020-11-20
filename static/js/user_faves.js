@@ -39,9 +39,9 @@ const iconId = icon.attr('id');
 //     user_id: $()
 // }
 
-$.get('/directory', (data) => {
-    alert(data)
-})
+// $.get('/directory', (data) => {
+//     alert(data)
+// })
 
 // $.post('/add-favorite', iconId, (response) => {
 //     alert(response)

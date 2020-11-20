@@ -5,6 +5,7 @@
 {% block body %}
 <h2>{{ business.bus_name }} provides {{ business.service.name_serv }} services</h2>
 <h3>{{ business.description }}</h3>
+<img src="/static/jpeg/{{ business.image }}">
 <h3>Contact Info:</h3>
 <p>Website: {{business.url }}</p>
 <p>Email: {{ business.email }}</p>
