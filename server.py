@@ -1,7 +1,10 @@
 """Server for holistic health directory app"""
 
-from flask import (Flask, render_template, request, flash, session, redirect)
+from flask import (Flask, render_template, request, flash, session, redirect, url_for)
 from model import connect_to_db
+import random
+from flask_uploads import (configure_uploads, IMAGES, UploadSet)
+from werkzeug import secure_filename, FileStorage
 
 import crud
 from jinja2 import StrictUndefined
@@ -10,23 +13,59 @@ app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
+# Configuring a default folder for uploaded images
+app.config['UPLOADED_PHOTOS_DEST'] = 'static/jpeg'
+photos = UploadSet('photos', IMAGES)
+configure_uploads(app, photos)
+
+
 @app.route('/')
 def homepage():
     """return homepage template"""
-    user_id = session.get("user_id")
-    if user_id:
-        flash(user_id)
+
+    if 'user_id' in session:
+        return render_template('homepage.html')
 
     return render_template('homepage.html')
+
+@app.route('/googlecal')
+def show_cal():
+
+    return render_template('googleCal.html')
 
 @app.route('/signin')
 def signin():
     """View login page"""
-    user_id = session.get("user_id")
-    if user_id:
-        flash(user_id)
 
     return render_template('login.html')
+
+@app.route('/login', methods=['POST'])
+def login_user():
+    """Log a user into the website"""
+
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    user = crud.check_user_login_info(email, password)
+
+    if user:
+        session["user_id"] = user.user_id
+        fname = user.fname
+        flash(f'Welcome {fname}')
+        return redirect('/directory')
+
+    else:
+        flash('Login info is incorrect, try again.')
+        return redirect('/signin')
+
+@app.route('/logout')
+def user_logout():
+    """Log a user out"""
+
+    session.clear()
+    flash('You are now logged out')
+
+    return redirect('/')
 
 @app.route('/add-user')
 def add_user():
@@ -37,11 +76,7 @@ def add_user():
 @app.route('/directory')
 def all_businesses():
     """View all businesses"""
-    # TODO: get rid of user flash
-    user_id = session.get("user_id")
-    if user_id:
-        flash(user_id)
-    # bus_id = need to get bus
+
     all_bus = crud.get_businesses()
 
     all_servs = crud.get_servs()
@@ -66,13 +101,14 @@ def register_bus():
     email = request.form.get('email')
     tel = request.form.get('tel')
     description = request.form.get('description')
-    image = request.form.get('image')
+    image = photos.save(request.files['photo'])
+    # image_save = images.save(form.dog_img.data)
     service = request.form.get('name_serv')
     bus_passwrd = request.form.get('bus_passwrd')
 
     bus = crud.get_bus_by_email(email)
-    # Check to see if user exists in db already
 
+    # Check to see if bus exists in db already
     if bus:
         flash('This business already exists.')
         return redirect('/business-registration')
@@ -163,26 +199,9 @@ def show_evts(bus_id):
     """Show events being put on by a particular business"""
 
     events = crud.get_bus_evts(bus_id)
+    business = crud.get_bus_by_id(bus_id)
 
-    return render_template('/business_events.html', events=events)
-
-@app.route('/login', methods=['POST'])
-def login_user():
-    """Log a user into the website"""
-
-    email = request.form.get('email')
-    password = request.form.get('password')
-
-    user = crud.check_user_login_info(email, password)
-
-    if user:
-        session["user_id"] = user.user_id
-        return redirect('/directory')
-
-    else:
-        flash('Login info is incorrect, try again.')
-        return redirect('/signin')
-    
+    return render_template('/business_events.html', events=events, business=business)
 
 @app.route('/user-registration', methods=['POST'])
 def register_user():
@@ -222,6 +241,17 @@ def all_evts():
     all_evts = crud.get_events()
 
     return render_template('all_evts.html', all_evts=all_evts)
+
+# @app.route('/featured-business')
+# def show_featured_business():
+#     """Show a featured business"""
+
+#     mix_businesses = crud.get_businesses()
+#     print(type(mix_businesses))
+#     rand_bus = random.choice(mix_businesses)
+#     print(rand_bus)
+
+#     return print(type(rand_bus))
 
 
 # TODO: make this do the thing its supposed to do
@@ -288,7 +318,13 @@ def add_fave(bus_id):
 
     return redirect('/directory')
 
-
+# @app.route('/add-business', methods=['GET', 'POST'])
+# def upload():
+#     if request.method == 'POST' and 'photo' in request.files:
+#         filename = photos.save(request.files['photo'])
+#         return filename
+    
+#     return redirect('/')
 
 
 if __name__ == '__main__':

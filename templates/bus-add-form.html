@@ -5,7 +5,7 @@
 
 {% block body %}
     <h1>Please Create a Business Account</h1>
-    <form action="/business-registration" method="POST">
+    <form action="/business-registration" method="POST" enctype="multipart/form-data">
         <p>
             Business Name <input type="text" name="bus_name" required>
         </p>
@@ -47,7 +47,8 @@
         </p>
         <p>
             Image Upload: 
-                <input type="file" id="image" name="image">
+                <input type="file" id="image" name="photo">
+                <!-- <button type="submit">Save Photo</button> -->
         </p>
 
         <p>

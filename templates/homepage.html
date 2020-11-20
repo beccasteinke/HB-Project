@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}Holistic Health Home{% endblock %}
-
+{% block head %}{% endblock %}
 {% block body %}
     <h1>Holistic Health Homepage</h1>
     <h3>Here is some dummy text!</h3>
@@ -9,6 +9,10 @@
     <br><br><br>
     <p>Maybe a few blog posts</p>
     <p>or general info about the website</p>
+    <p>Here is a featured business: <span id="featured"></span>. Wow cool let's hope this works</p>
+
+    <script src="/static/js/loginmodal.js"></script>
+
     <!-- <form action="/login" method="GET">
         <p>
             Email <input type="text" name="email">

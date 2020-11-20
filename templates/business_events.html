@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Events{% endblock %}
+
+{% block body %}
+    <h1>{{ business.bus_name }} Profile</h1>
+    <h3>Your Upcoming Events:</h3>
+    <ul>
+        {% for event in events %}
+        <li>{{ event.name_evt }}</li>
+        {% endfor %}
+    </ul>
+    <div id="upcoming-evts">here is my inner html</div>
+    <p>Add an event to your calendar:</p><button id="add-new-event">Add Event</button>
+
+    <script src="/static/js/evts-ajax.js"></script>
+{% endblock %}

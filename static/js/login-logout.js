@@ -1,9 +1,37 @@
 "use strict";
 
-// document.querySelector('#login-submit').addEventListener('click', (evt) => {
-//     const loginBtn = evt.target;
-//     console.log(evt.target);
+// const loginNav = document.getElementById('#login-navbar');
 
+// document.querySelector('#login-submit').addEventListener('click' => {
+//     const loginNav = document.getElementById('#login-navbar');
+//     console.log(loginNav);
+
+//     if (loginNav.innerHTML === 'Login') {
+//         loginNav.innerHTML = 'Logout';
+//     } else {
+//         loginNav.innerHTML = 'Login';
+//     }
+// });
+
+const loginNav = document.getElementById('#login-navbar');
+function replaceLoginHTML() {
+    alert("what the fuckkkk")
+    loginNav.innerHTML === 'Logout'
+    // if (loginNav.innerHTML === 'Login') {
+    //     loginNav.innerHTML = 'Logout';
+    // } else {
+    //     loginNav.innerHTML = 'Login';
+    // }
+
+};
+
+$('#login-submit').on('click', replaceLoginHTML)
+
+
+
+// const loginBtn = document.querySelector('#login-navbar');
+// const loginSubmit = document.querySelector('#login-submit');
+// loginSubmit.on('click' => 
 //     if (loginBtn.innerHTML === 'Login') {
 //         loginBtn.innerHTML = 'Logout';
 //     } else {
@@ -13,11 +41,10 @@
 
 // function changeLogin (evt) {
 //     $.get('/', (evt) => {
-//         $('login-btn').html("Logout");
+//         $('login-navbar').html("Logout");
 //     });
 // };
 
 // $('#login-submit').on('click', => {
-//     $.get('#login-nav').text("Logout")}
-    
-//     );
+//     $.get('#login-navbar').text("Logout")
+// });

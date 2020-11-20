@@ -9,7 +9,8 @@
         {% endfor %}
 
     </div>
-
+    <div id="upcoming-evts">here is my inner html</div>
+    <div id="playbox">Hmmm</div>
     <ul>
         {% for business in all_bus %}
             <div id="business{{ business.bus_id }}">
@@ -24,4 +25,5 @@
         {% endfor %}
     </ul>
     <script src="/static/js/user_faves.js"></script>
+    <script src="/static/js/evts-ajax.js"></script>
 {% endblock %}
