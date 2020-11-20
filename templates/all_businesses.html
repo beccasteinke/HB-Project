@@ -2,6 +2,11 @@
 {% block title %}All Businesses{% endblock %}
 
 {% block body %}
+    <!-- Trigger/Open The Modal -->
+
+
+    <!-- The Modal -->
+
     <h1>All Businesses</h1>
     <div id="service-box">
         {% for service in all_servs %}
@@ -20,10 +25,21 @@
                 <img src="static/jpeg/{{ business.image }}" width="200" height="150">
                 <p>{{ business.description }}</p>
                 <br>
-                <p><button class="upcoming-evts">Upcoming Events</button></p>
+                <button id="upcomingEvtsModalBtn">Upcoming Events</button>
+                <div id="myEvtsModal" class="modal">
+    
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                      <span class="close">&times;</span>
+                      <p>{{ business.}}</p>
+                    </div>
+                  
+                  </div>
             </div>
         {% endfor %}
     </ul>
+
+    <script src="/static/js/evtsmodal.js"></script>
     <script src="/static/js/user_faves.js"></script>
     <script src="/static/js/evts-ajax.js"></script>
 {% endblock %}
