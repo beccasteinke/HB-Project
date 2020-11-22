@@ -8,10 +8,15 @@
     <!-- The Modal -->
 
     <h1>All Businesses</h1>
-    <div id="service-box">
+    <div id="filter-box">
+        <div id="search-box">
+
+        </div>
+        <div id="filter-btns">
         {% for service in all_servs %}
             <button id="{{ service.service_id }}">{{ service.name_serv }}</button>
         {% endfor %}
+        </div>
 
     </div>
     <div id="upcoming-evts">here is my inner html</div>

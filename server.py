@@ -5,6 +5,7 @@ from model import connect_to_db
 import random
 from flask_uploads import (configure_uploads, IMAGES, UploadSet)
 from werkzeug import secure_filename, FileStorage
+from forms import BusSearchForm
 
 import crud
 from jinja2 import StrictUndefined
@@ -73,7 +74,7 @@ def add_user():
 
     return render_template('register-form.html')
 
-@app.route('/directory')
+@app.route('/directory', methods=['GET', 'POST'])
 def all_businesses():
     """View all businesses"""
 
@@ -83,7 +84,27 @@ def all_businesses():
 
     # evts_bus = crud.get_evt_by_bus(bus_id)
 
-    return render_template('all_businesses.html', all_bus=all_bus, all_servs=all_servs)
+    """Search form"""
+    search = BusSearchForm(request.form)
+    if request.method == 'POST':
+        return search_results(search)
+
+    return render_template('all_businesses.html', all_bus=all_bus, all_servs=all_servs, form=search)
+
+@app.route('/results')
+def search_results(search):
+    results = []
+    search_string = search.data['search']
+
+    if search.data['search'] == '':
+        qry = db.session.query(Business)
+        results = qry.all()
+    
+    if not results:
+        flash('No results found')
+        return redirect('/directory')
+    else:
+        return render_template('results.html', results=results)
 
 @app.route('/add-business')
 def add_bus():

@@ -6,6 +6,7 @@ from datetime import datetime
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:////fake_data'
 db = SQLAlchemy()
 
+
 class User(db.Model):
     """Instantiate a user"""
 
