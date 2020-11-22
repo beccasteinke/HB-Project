@@ -5,8 +5,8 @@ from model import connect_to_db, Business, Event
 import random
 from flask_uploads import (configure_uploads, IMAGES, UploadSet)
 from werkzeug import secure_filename, FileStorage
-from forms import BusSearchForm
-from tables import Results
+from forms import SearchForm
+from tables import BusResults, EvtResults
 
 import crud
 from jinja2 import StrictUndefined
@@ -86,7 +86,7 @@ def all_businesses():
     # evts_bus = crud.get_evt_by_bus(bus_id)
 
     """Search form"""
-    search = BusSearchForm(request.form)
+    search = SearchForm(request.form)
     if request.method == 'POST':
         return search_results(search)
 
@@ -103,17 +103,19 @@ def search_results(search):
             qry = crud.db.session.query(Business).filter(
                 Business.bus_name.contains(search_string))
             results = qry.all()
+            table = BusResults(results)
 
         elif search.data['select'] == 'Event':
             """if a user searches an event"""
             qry = crud.db.session.query(Event).filter(
                 Event.name_evt.contains(search_string))
             results = qry.all()
+            table = EvtResults(results)
         else:
             qry = crud.db.session.query(Business)
             results = qry.all()
     else:
-        qry = crud.db.session.query(Event)
+        qry = crud.db.session.query(Business)
         results = qry.all()
 
     # if search.data['search'] == '':
@@ -125,8 +127,8 @@ def search_results(search):
         return redirect('/directory')
     else:
         #display results
-        table = Results(results)
         table.border = True
+
         return render_template('results.html', table=table)
 
 @app.route('/add-business')
