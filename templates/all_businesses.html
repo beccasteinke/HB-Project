@@ -10,7 +10,15 @@
     <h1>All Businesses</h1>
     <div id="filter-box">
         <div id="search-box">
-
+            {% from "_formhelpers.html" import render_field %}
+            <form method="post">
+              <dl>
+                {{ render_field(form.select) }}
+                <p>
+                {{ render_field(form.search) }}
+              </p></dl>
+              <p><input type="submit" value="Search">
+            </p></form>
         </div>
         <div id="filter-btns">
         {% for service in all_servs %}

@@ -1,11 +1,12 @@
 """Server for holistic health directory app"""
 
 from flask import (Flask, render_template, request, flash, session, redirect, url_for)
-from model import connect_to_db
+from model import connect_to_db, Business, Event
 import random
 from flask_uploads import (configure_uploads, IMAGES, UploadSet)
 from werkzeug import secure_filename, FileStorage
 from forms import BusSearchForm
+from tables import Results
 
 import crud
 from jinja2 import StrictUndefined
@@ -97,14 +98,17 @@ def search_results(search):
     search_string = search.data['search']
 
     if search.data['search'] == '':
-        qry = db.session.query(Business)
+        qry = crud.db.session.query(Business)
         results = qry.all()
     
     if not results:
         flash('No results found')
         return redirect('/directory')
     else:
-        return render_template('results.html', results=results)
+        #display results
+        table = Results(results)
+        table.border = True
+        return render_template('results.html', table=table)
 
 @app.route('/add-business')
 def add_bus():
