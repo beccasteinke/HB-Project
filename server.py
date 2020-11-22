@@ -97,9 +97,28 @@ def search_results(search):
     results = []
     search_string = search.data['search']
 
-    if search.data['search'] == '':
-        qry = crud.db.session.query(Business)
+    if search_string:
+        if search.data['select'] == 'Business':
+            """if a user searches for a business"""
+            qry = crud.db.session.query(Business).filter(
+                Business.bus_name.contains(search_string))
+            results = qry.all()
+
+        elif search.data['select'] == 'Event':
+            """if a user searches an event"""
+            qry = crud.db.session.query(Event).filter(
+                Event.name_evt.contains(search_string))
+            results = qry.all()
+        else:
+            qry = crud.db.session.query(Business)
+            results = qry.all()
+    else:
+        qry = crud.db.session.query(Event)
         results = qry.all()
+
+    # if search.data['search'] == '':
+    #     qry = crud.db.session.query(Business)
+    #     results = qry.all()
     
     if not results:
         flash('No results found')
