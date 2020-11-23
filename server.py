@@ -227,11 +227,11 @@ def bus_login():
 
     return render_template('business-login.html')
 
-@app.route('/search')
-def show_search():
-    """View search page"""
+@app.route('/calendar')
+def show_calendar():
+    """View calendar page"""
 
-    return render_template('search.html')
+    return render_template('calendar.html')
 
 @app.route('/business-login', methods=['POST'])
 def login_bus():
