@@ -13,15 +13,23 @@
 //     }
 // });
 
-$.get('/isloggedin', (res) => {
+const loginNav = document.getElementById("login-navbar");
 
+$.get('/isloggedin', (res) => {
+    // alert(res)
     if (res === true) {
-        loginNav.innerHTML = 'Logout'
+        loginNav.innerHTML = 'Logout';
+        // $(loginNav).attr("href","/logout");
     };
 });
 
+if (loginNav.innerHTML == 'Logout') {
+    const oldUrl = $(loginNav).attr("href");
+    const newUrl = oldUrl.replace("/signin", "logout");
+    $(loginNav).attr("href", newUrl);
+}
 
-const loginNav = document.getElementById("login-navbar");
+
 //function replaceLoginHTML(){
     // alert("what the fuckkkk")
     //console.log(

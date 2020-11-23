@@ -37,8 +37,8 @@ configure_uploads(app, photos)
 def homepage():
     """return homepage template"""
 
-    if 'user_id' in session:
-        return render_template('homepage.html')
+    # if 'user_id' in session:
+    #     return render_template('homepage.html')
 
     return render_template('homepage.html')
 
@@ -64,6 +64,7 @@ def login_user():
 
     if user:
         session["user_id"] = user.user_id
+        session['logged_in'] = True
         fname = user.fname
         flash(f'Welcome {fname}')
         return redirect('/directory')
@@ -72,17 +73,29 @@ def login_user():
         flash('Login info is incorrect, try again.')
         return redirect('/signin')
 
+#TODO; FIX THIS ROUTE and lOGIN/LOGOUT SHIT
 @app.route('/isloggedin')
 def is_logged_in():
 # TODO: authenticate 
-    # if user_id exists in session - return != None
-    return jsonify(session["user_id"] != None)
+    user = session.get("user_id")
+    if user in session:
+        session['logged_in'] == True
+        return jsonify(session["user_id"] != None)
+    else:
+        session['logged_in'] == False
+        return jsonify(session["user_id"] == None)
+
+
+    # # if user_id exists in session - return != None
+
+    # else:
+    #     return jsonify(session["user_id"] == None)
 
 @app.route('/logout')
 def user_logout():
     """Log a user out"""
 
-    session.clear()
+    session.pop('logged_in', None)
     flash('You are now logged out')
 
     return redirect('/')
