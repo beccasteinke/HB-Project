@@ -19,15 +19,16 @@ $.get('/isloggedin', (res) => {
     // alert(res)
     if (res === true) {
         loginNav.innerHTML = 'Logout';
+        loginNav.setAttribute("href", "/logout");
         // $(loginNav).attr("href","/logout");
     };
 });
 
-if (loginNav.innerHTML == 'Logout') {
-    const oldUrl = $(loginNav).attr("href");
-    const newUrl = oldUrl.replace("/signin", "logout");
-    $(loginNav).attr("href", newUrl);
-}
+// if (loginNav.innerHTML === 'Logout') {
+//     const oldUrl = $(loginNav).attr("href");
+//     const newUrl = oldUrl.replace("/signin", "/logout");
+//     $(loginNav).attr("href", newUrl);
+// }
 
 
 //function replaceLoginHTML(){

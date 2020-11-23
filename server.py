@@ -77,14 +77,11 @@ def login_user():
 @app.route('/isloggedin')
 def is_logged_in():
 # TODO: authenticate 
-    user = session.get("user_id")
-    if user in session:
-        session['logged_in'] == True
-        return jsonify(session["user_id"] != None)
+    
+    if session['logged_in']:
+        return jsonify(session['logged_in'])
     else:
-        session['logged_in'] == False
-        return jsonify(session["user_id"] == None)
-
+        return jsonify(False)
 
     # # if user_id exists in session - return != None
 
