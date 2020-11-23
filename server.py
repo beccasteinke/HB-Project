@@ -11,6 +11,18 @@ from tables import BusResults, EvtResults
 import crud
 from jinja2 import StrictUndefined
 
+
+
+import pickle
+
+
+
+
+
+
+
+
+
 app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
@@ -312,24 +324,27 @@ def show_bus_evts(bus_id):
     return render_template('evts_by_bus.html', bus_id=bus_id)
 
 #TODO: finish this route
-"""
-@app.route('/add-event', methods=['POST'])
-def add_event():
-    add a new event to the business's profile and db
 
-    new_evt = crud.create_event(name_evt, start, end, description, service, business)
-    
-    name_evt = request.form.get('name_evt')
-    #TODO: maybe have a nice time form
-    start = request.form.get('start')
-    end = request.form.get('end')
-    description = request.form.get('description')
-    #TODO might run into service option problems
-    service = request.form.get('service')
-    business = #get bus_id from session?
+# @app.route('/add-event', methods=['POST'])
+# def add_event():
+#     """add a new event to the business's profile and db"""
 
-    return redirect('/')
-"""
+#     business = request.form.get('bus_name')
+#     name_evt = request.form.get('name_evt')
+
+#     start = request.form.get('start')
+#     end = request.form.get('end')
+#     description = request.form.get('description')
+
+#     #TODO might run into service option problems
+#     service = request.form.get('service')
+
+#     #business = get bus_id from session?
+
+#     new_evt = crud.create_event(name_evt, start, end, description, service, business)
+
+#     return redirect('/')
+
 
 @app.route('/profile')
 def profile():
@@ -397,3 +412,26 @@ def add_fave(bus_id):
 if __name__ == '__main__':
     connect_to_db(app)
     app.run(host='0.0.0.0', debug=True)
+
+
+# google cal play
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+
+# users can read/write on the entire calendar
+# maybe change to https://www.googleapis.com/auth/calendar.events.readonly 
+# so users can just see the events in a calendar
+scopes = ['https://www.googleapis.com/auth/calendar']
+flow = InstalledAppFlow.from_client_secrets_file("client_secret2.json", scopes=scopes)
+credentials = flow.run_console()
+
+pickle.dump(credentials, open("token.pkl", "wb"))
+
+credentials = pickle.load(open("token.pkl", "rb"))
+
+service = build("calendar", "v3", credentials=credentials)
+
+calendars = service.calendarList().list().execute()
+
+print(calendars['items'][0])

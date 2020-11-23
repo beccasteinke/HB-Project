@@ -8,6 +8,45 @@
         <li>your event 1</li>
         <li>your event 2</li>
     </ul>
-    <p>Add an event to our calendar:</p><button id="add-new-event" formaction="/add-event">Add Event</button>
-
+    <div id="add-evt-form">
+        <form action="/add-event" method="POST">
+            
+            <p>
+                Business Name <input type="text" name="bus_name" required>
+            </p>
+            <p>
+                Name of Event <input type="text" name="name_evt" required>
+            </p>
+            <p>
+                Type of Event: 
+                    <select id="evt_service" name="name_serv">
+                        <option value="bodywork">Bodywork</option>
+                        <option value="breathwork">Breathwork</option>
+                        <option value="energy-work">Energy Work</option>
+                        <option value="fitness">Fitness</option>
+                        <option value="halotherapy">Halotherapy</option>
+                        <option value="meditation">Meditation</option>
+                        <option value="mental-health">Mental Health</option>
+                        <option value="nutrition">Nutrition</option>
+                        <option value="sound-healing">Sound Healing</option>
+                        <option value="yoga">Yoga</option>
+                        <option value="">Other</option>
+                    </select> 
+            </p>
+            <p>
+                Description <input type="text" name="description" required>
+            </p>
+            <p>
+                Start Time <input type="datetime-local" class="datepicker" name="start" min="2020-11-22T00:00" max="2021-12-31T00:00" required>
+            </p>
+            <p>
+                End Time <input type="datetime-local" class="datepicker" name="end" name="start" min="2020-11-22T00:00" max="2021-12-31T00:00" required>
+            </p>
+            <p>
+                Add an event to our calendar:<button id="add-new-event">Add Event</button>
+            </p>
+        </form>
+    </div>
+    
+    <script src="/static/js/add_evt_time.js"></script>
 {% endblock %}
