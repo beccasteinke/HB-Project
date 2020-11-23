@@ -1,6 +1,6 @@
 """Server for holistic health directory app"""
 
-from flask import (Flask, render_template, request, flash, session, redirect, url_for)
+from flask import (Flask, render_template, request, flash, session, redirect, url_for, jsonify)
 from model import connect_to_db, Business, Event
 import random
 from flask_uploads import (configure_uploads, IMAGES, UploadSet)
@@ -71,6 +71,12 @@ def login_user():
     else:
         flash('Login info is incorrect, try again.')
         return redirect('/signin')
+
+@app.route('/isloggedin')
+def is_logged_in():
+# TODO: authenticate 
+    # if user_id exists in session - return != None
+    return jsonify(session["user_id"] != None)
 
 @app.route('/logout')
 def user_logout():
@@ -415,23 +421,23 @@ if __name__ == '__main__':
 
 
 # google cal play
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
+# from googleapiclient.discovery import build
+# from google_auth_oauthlib.flow import InstalledAppFlow
+# from google.auth.transport.requests import Request
 
-# users can read/write on the entire calendar
-# maybe change to https://www.googleapis.com/auth/calendar.events.readonly 
-# so users can just see the events in a calendar
-scopes = ['https://www.googleapis.com/auth/calendar']
-flow = InstalledAppFlow.from_client_secrets_file("client_secret2.json", scopes=scopes)
-credentials = flow.run_console()
+# # users can read/write on the entire calendar
+# # maybe change to https://www.googleapis.com/auth/calendar.events.readonly 
+# # so users can just see the events in a calendar
+# scopes = ['https://www.googleapis.com/auth/calendar']
+# flow = InstalledAppFlow.from_client_secrets_file("client_secret2.json", scopes=scopes)
+# credentials = flow.run_console()
 
-pickle.dump(credentials, open("token.pkl", "wb"))
+# pickle.dump(credentials, open("token.pkl", "wb"))
 
-credentials = pickle.load(open("token.pkl", "rb"))
+# credentials = pickle.load(open("token.pkl", "rb"))
 
-service = build("calendar", "v3", credentials=credentials)
+# service = build("calendar", "v3", credentials=credentials)
 
-calendars = service.calendarList().list().execute()
+# calendars = service.calendarList().list().execute()
 
-print(calendars['items'][0])
+# print(calendars['items'][0])

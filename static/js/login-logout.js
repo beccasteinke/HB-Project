@@ -13,19 +13,28 @@
 //     }
 // });
 
-const loginNav = document.getElementById('#login-navbar');
-function replaceLoginHTML() {
-    alert("what the fuckkkk")
-    loginNav.innerHTML === 'Logout'
+$.get('/isloggedin', (res) => {
+
+    if (res === true) {
+        loginNav.innerHTML = 'Logout'
+    };
+});
+
+
+const loginNav = document.getElementById("login-navbar");
+//function replaceLoginHTML(){
+    // alert("what the fuckkkk")
+    //console.log(
+   
     // if (loginNav.innerHTML === 'Login') {
     //     loginNav.innerHTML = 'Logout';
     // } else {
     //     loginNav.innerHTML = 'Login';
     // }
 
-};
+//};
 
-$('#login-submit').on('click', replaceLoginHTML)
+//$('#login-submit').on('click', replaceLoginHTML)
 
 
 
