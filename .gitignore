@@ -4,3 +4,5 @@ project-hw-beccasteinke/
 notes_for_self
 __pycache__
 .vscode/
+token.pkl
+client_secret2.json
