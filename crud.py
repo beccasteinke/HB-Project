@@ -49,6 +49,7 @@ def create_business(bus_name, url, address, email, tel, description, image, serv
 
     return business
 
+# TODO: this is redundant
 def add_new_business(bus_name, url, address, email, tel, description, image, service_id, bus_passwrd):
 
     new_bus = Business(bus_name=bus_name,
@@ -104,6 +105,14 @@ def get_servs():
     """Return all services"""
 
     return Service.query.all()
+
+def serv_by_name(name_serv):
+    """Return service by name_serv"""
+
+# Service.query.distinct(Service.name_serv).all()
+
+    return Service.query.filter(Service.name_serv == name_serv).all()
+
 
 def create_event(name_evt, start, end, description, service, business):
     """Create and return an event"""

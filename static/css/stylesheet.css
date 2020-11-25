@@ -35,3 +35,15 @@
     text-decoration: none;
     cursor: pointer;
   }
+
+img {
+  width: 25%;
+  height: 25%
+}
+/* #newsResults {
+  width:33%
+} */
+
+body {
+  padding: 20px;
+}

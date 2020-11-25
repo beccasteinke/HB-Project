@@ -2,56 +2,30 @@
 {% block title %}Holistic Health Home{% endblock %}
 {% block head %}{% endblock %}
 {% block body %}
-    <h1>Holistic Health Homepage</h1>
-    <h3>Here is some dummy text!</h3>
+<div class="jumbotron text-center">
+    <h1>Open Minded Humans</h1>
+    <h3>A directory to find holistic and alternative medicinal</h3>
     
     <h3><a href="/signin">Login</a></h3>
     <br><br><br>
     <p>Maybe a few blog posts</p>
     <p>or general info about the website</p>
     <p>Here is a featured business: <span id="featured"></span>. Wow cool let's hope this works</p>
-<div id="newsResults"></div>
+</div>
+<div id="newsResults">
+        <div class="row">
+          <!-- <div class="col-md-4">
+            One of three columns
+          </div>
+          <div class="col-md-4">
+            Two of three columns
+          </div>
+          <div class="col-md-4">
+            Three of three columns
+          </div> -->
+        </div>
+</div>
     <script src="/static/js/loginmodal.js"></script>
     <script src="/static/js/home-news.js"></script>
 
-    <!-- <form action="/login" method="GET">
-        <p>
-            Email <input type="text" name="email">
-        </p>
-
-        <p>
-            Password <input type="password" name="password">
-        </p>
-
-        <p>
-            <input type="submit" name="login">
-        </p>
-    </form>
-    <p>Not registered? <a href="/add-user">Create an account</a></p>
-    <br> -->
-    <!-- <h3>Create an Account (>> to rt in sidebar)</h3>
-
-    <form action="/user-registration" method="POST">
-        <p>
-            Email <input type="text" name="email" required>
-        </p>
-
-        <p>
-            Password <input type="password" name="password" required>
-        </p> -->
-        <!-- <p>
-            First Name <input type="text" name="fname" required>
-        </p>
-        <p>
-            Last Name <input type="text" name="lname" required>
-        </p>
-        <p>
-            Mobile Number: <input type="tel" id="tel" name="tel"
-            pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
-            required>
-        </p> -->
-        <!-- <p>
-            <input type="submit">
-        </p>
-    </form> -->
 {% endblock %}
