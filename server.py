@@ -260,14 +260,25 @@ def show_bus_profile():
         flash('Please sign in')
         return render_template('login.html')
 
-@app.route('/directory/<bus_id>')
-# TODO: potentially change this so its directory/bus_name through a different query (.filter or.filter_by)
-def show_business(bus_id):
+@app.route('/directory/<bus_name>')
+def show_business(bus_name):
     """Show details on a particular business"""
-
-    business = crud.get_bus_by_id(bus_id)
+    print(bus_name)
+    print("********* bus name up top")
+    business = crud.get_bus_by_name(bus_name)
+    print(business)
+    print("************ business up top")
 
     return render_template('/business_details.html', business=business)
+
+@app.route('/directory/service/<service_id>')
+
+def serv_filter(service_id):
+    """show all businesses that provide a name_serv"""
+
+    businesses = crud.bus_by_serv(service_id)
+
+    return render_template('/filtered_businesses.html', businesses=businesses)
 
 @app.route('/events/<bus_id>')
 # TODO: potentially change this so its directory/bus_name through a different query (.filter or.filter_by)
@@ -318,26 +329,6 @@ def all_evts():
 
     return render_template('all_evts.html', all_evts=all_evts)
 
-# @app.route('/directory/<name_serv>')
-# def serv_filter(name_serv):
-#     # get all businesses providing a certain service
-#     # Business.service
-#     all_servs = crud.somefunction
-#     for service in all_servs
-
-#     service = crud.get_serv_by_name(name_serv)
-
-# @app.route('/featured-business')
-# def show_featured_business():
-#     """Show a featured business"""
-
-#     mix_businesses = crud.get_businesses()
-#     print(type(mix_businesses))
-#     rand_bus = random.choice(mix_businesses)
-#     print(rand_bus)
-
-#     return print(type(rand_bus))
-
 
 # TODO: make this do the thing its supposed to do
 @app.route('/events/<bus_id>')
@@ -374,11 +365,15 @@ def show_bus_evts(bus_id):
 @app.route('/profile')
 def profile():
     """Show a user's profile"""
+
     user_id = session.get("user_id")
+    userbuses = crud.show_all_userbus(user_id)
+
+ 
 
     if user_id:
         user = crud.get_user_by_id(user_id)
-        return render_template('user_profile.html', user=user)
+        return render_template('user_profile.html', user=user, userbuses=userbuses)
     
     else:
         flash('Please sign in')
@@ -417,21 +412,13 @@ def add_fave(bus_id):
 
     if user:
         fave = crud.add_new_userbus(user, business)
-        added_fave = crud.check_userbus_info(user_id, bus_id)
+        # added_fave = crud.check_userbus_info(user_id, bus_id)
 
-        if added_fave:
-            flash("you've already added this to your favorites list")
+        # if added_fave:
+        #     flash("you've already added this to your favorites list")
 
 
     return redirect('/directory')
-
-# @app.route('/add-business', methods=['GET', 'POST'])
-# def upload():
-#     if request.method == 'POST' and 'photo' in request.files:
-#         filename = photos.save(request.files['photo'])
-#         return filename
-    
-#     return redirect('/')
 
 
 if __name__ == '__main__':

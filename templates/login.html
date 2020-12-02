@@ -2,23 +2,26 @@
 {% block title %}Holistic Health - Login {% endblock %}
 
 {% block body %}
-
-<h1>Welcome!</h1>
+<div id="login-box" class="row align-items-center justify-content-center">
+<div class="col-4">
+    <h1>Welcome!</h1>
 <br><br>
 
 <p>Sign In</p>
 <form action="/login" method="POST">
+    <div class="active-cyan-4 mb-4">
+        <input type="text" name="email" class="form-control" placeholder="email address">
+    </div>
+    <div class="active-cyan-4 mb-4">
+        <input type="password" name="password" class="form-control" placeholder="password">
+    </div>
     <p>
-        Email <input type="text" name="email">
-    </p>
-    <p>
-        Password <input type="password" name="password">
-    </p>
-    <p>
-        <button type="submit" id="login-submit" name="login">Login</button>
+        <button type="submit" id="login-submit" class="btn btn-info" name="login">Login</button>
     </p>
 </form>
 <p>Not registered? <a href="/user-registration">Create an account</a></p>
+</div>
+</div>
 
 
 {% endblock %}

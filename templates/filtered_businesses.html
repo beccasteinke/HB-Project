@@ -1,0 +1,34 @@
+
+{% extends 'base.html' %}
+{% block title %}All Events{% endblock %}
+
+{% block body %}
+
+
+
+<div class="jumbotron">
+  {% for business in businesses[0:1] %}
+    <h3>{{business.service.name_serv}}</h3>
+  {% endfor %}
+</div>
+
+
+
+{% for business in businesses %}
+<div id="serv-bus-container" class="media container">
+  <img class="mr-3 img-fluid" style="max-width: 30%;" src="/static/jpeg/{{ business.image }}" alt="">
+   
+  <div class="media-body">
+    <h4 class="mt-0">{{ business.bus_name }}</h4>
+    {{ business.description }}
+    <br><br>
+    <h5>Contact Info:</h5>
+    <p>Website: <a href="{{ business.url }}">{{ business.bus_name }}</a></p>
+    <p>Email: {{ business.email }}</p>
+    <p>Phone Number: {{ business.tel }}</p>
+  </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}

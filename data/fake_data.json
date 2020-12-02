@@ -88,5 +88,41 @@
         "email": "taylor@gmail.com",
         "tel": "+17767465276",
         "image": "taylortherapy.jpeg"
+    },
+    {
+        "URL": "https://brightfitness.com/",
+        "address": "100 W. 7th, MN 55104",
+        "bus_name": "Bright Fitness",
+        "description": "Small group fitness classes with personalized training plans",
+        "email": "bright@gmail.com",
+        "tel": "+14397147127",
+        "image": "brightfitness.jpeg"
+    },
+    {
+        "URL": "https://crystalhealing.net/",
+        "address": "948 21st ave, WI 53172",
+        "bus_name": "Crystal Healing",
+        "description": "Healing ceremonies primarily using crystals to tap into their healing powers",
+        "email": "crystals@gmail.com",
+        "tel": "+19248530017",
+        "image": "crystalhealing.jpeg"
+    },
+    {
+        "URL": "https://lisatherapist.com/",
+        "address": "3004 Main street, MN 55455",
+        "bus_name": "Lisa Therapist",
+        "description": "Lisa Therapist is a therapist specializing in alternative healing mechanisms",
+        "email": "lisatherapist@gmail.com",
+        "tel": "+19814755300",
+        "image": "lisatherapist.jpeg"
+    },
+    {
+        "URL": "https://alternativechiro.com/",
+        "address": "54496 W 74th street, MN 51085",
+        "bus_name": "Alternative Chiropractic",
+        "description": "We specialize in alternative body healing. We provide services such as cupping, acupuncture, etc.",
+        "email": "altchiro@aol.com",
+        "tel": "+15594862203",
+        "image": "altchiro.jpeg"
     }
 ]

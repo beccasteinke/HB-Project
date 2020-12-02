@@ -85,6 +85,11 @@ def get_bus_by_id(bus_id):
 
     return Business.query.get(bus_id)
 
+def get_bus_by_name(bus_name):
+    """Return a business by name"""
+
+    return Business.query.filter(Business.bus_name == bus_name).first()
+
 def get_bus_evts(bus_id):
     """Return a list of events by business id"""
 
@@ -106,12 +111,16 @@ def get_servs():
 
     return Service.query.all()
 
-def serv_by_name(name_serv):
-    """Return service by name_serv"""
+def get_serv_by_id(service_id):
+    """Return a service by primary key"""
 
-# Service.query.distinct(Service.name_serv).all()
+    return Service.query.get(service_id)
 
-    return Service.query.filter(Service.name_serv == name_serv).all()
+
+def bus_by_serv(service_id):
+    """Return businesses by service_id"""
+
+    return Business.query.filter(Business.service_id == service_id).all()
 
 
 def create_event(name_evt, start, end, description, service, business):
@@ -159,7 +168,12 @@ def add_new_userbus(user, business):
 
     return userbus
 
-def check_userbus_info(user_id, business_id):
+def show_all_userbus(user_id):
+    """show all businesses favorited by a user"""
+    
+    return UserBus.query.filter(UserBus.user_id == user_id).all()
+
+def check_userbus_info(user_id, bus_id):
     """check if the user and business exist in the database"""
 
     return UserBus.query.filter((UserBus.user_id == user_id) & (UserBus.bus_id == bus_id)).first()
@@ -171,7 +185,7 @@ def check_userbus_info(user_id, business_id):
     # fave_bus = UserBus()
 
 def get_bus_by_user_id(user_id):
-    """find bus_name from bus_id's connected to user accounts"""
+    """find bus_name from bus_ids connected to user accounts"""
 
     bus_ids = db.session.query(UserBus.bus_id).filter_by(user_id=user_id)
 

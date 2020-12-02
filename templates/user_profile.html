@@ -2,11 +2,20 @@
 {% block title %}All Events{% endblock %}
 
 {% block body %}
-    <h1>{{ user.email }} Profile</h1>
+<div class="row align-items-center justify-content-center">
+    <div class="col-4">
+    <h2>{{ user.fname }} Profile</h2>
 
     <ul>
-        <li>a favorite business</li>
-        <li>another favorite business</li>
+        <li>{{ user.fname }} {{ user.lname }}</li>
+        <li>{{ user.email }}</li>
+        <li>{{ user.tel }}</li>
     </ul>
 
+    <h4>Favorite Businesses</h4>
+    {% for userbus in userbuses %}
+    <li><a href="directory/{{ userbus.business.bus_name }}">{{ userbus.business.bus_name }}</a></li>
+    {% endfor %}
+</div>
+</div>
 {% endblock %}

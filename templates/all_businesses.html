@@ -8,51 +8,89 @@
     <!-- The Modal -->
 
     <h1>All Businesses</h1>
-    <div id="filter-box">
+    <div id="filter-box" class="mx-auto px-{5}">
         <div id="search-box">
             {% from "_formhelpers.html" import render_field %}
             <form method="post">
-              <dl>
-                {{ render_field(form.select) }}
-                <p>
-                {{ render_field(form.search) }}
-              </p></dl>
-              <p><input type="submit" value="Search">
-            </p></form>
-        </div>
-        <div id="filter-btns">
-        {% for service in all_servs %}
-            <button id="{{ service.service_id }}">{{ service.name_serv }}</button>
-        {% endfor %}
+
+                {{ render_field(form.select) }}{{ render_field(form.search) }}
+
+              <input type="submit" value="Search">
+            </form>
         </div>
 
+        <div id="filter-btns">
+        {% for service in all_servs %}
+        <a href="/directory/service/{{ service.service_id }}" class="btn btn-info">{{ service.name_serv }}</a>
+            <!-- <button type="button" id="{{ service.name_serv }}" class="btn btn-info">{{ service.name_serv }}</button> -->
+        {% endfor %}
+        </div>
     </div>
-    <div id="upcoming-evts">here is my inner html</div>
-    <div id="playbox">Hmmm</div>
-    <ul>
+
+
+
+
+
+
+
+        <div id="directory" class="row">
         {% for business in all_bus %}
-            <div id="business{{ business.bus_id }}">
+        <div id="direct-deck" class="card-deck">
+     
+            <div id="direct-card" class="card" style="width:300px">
+                <div class="business-item">
+                    <div class="business-item-caption align-items-center justify-content-center h-100 w-100">
+                        <div class="business-item-caption-content text-center text-white">
+                            
+                            <form action="/add-favorite/{{ business.bus_id }}", method='POST'><input type="image" class="fave-btn" id="{{ business.bus_id }}" src="/static/icons/plus.png"
+                                name="{{ business.bus_id }}"></input></form>
+                        </div>
+                    </div>
+                    <img id="direct-img" class="card-img-top" src="static/jpeg/{{ business.image }}" alt="">
+                </div>
+            
+                <div class="card-body">
+                    <h5 class="card-title">{{ business.bus_name }} - {{ business.service.name_serv }}</h5>
+                    <p class="card-text">{{ business.description }}</p>
+                    <a href="/directory/{{ business.bus_name }}" class="btn btn-primary moreinfo">more info</a>
+                    <a href="todo:upcoming events" class="btn btn-primary events">upcoming events</a>
+                </div>
+            </div>
+
+
+
+
+
+            <!-- <div id="business{{ business.bus_id }}">
                 <div id="bus-name-fave"><h4>{{ business.bus_name }} - {{ business.service.name_serv }} ---- <form action="/add-favorite/{{ business.bus_id }}", method='POST'><input type="image" class="fave-btn" id="{{ business.bus_id }}" src="/static/icons/heart-50.png"
                     name="{{ business.bus_id }}"></input></form></h4></div>
                 <h2><a href="/directory/{{ business.bus_id }}">more info</a></h2>
                 <img src="static/jpeg/{{ business.image }}" width="200" height="150">
                 <p>{{ business.description }}</p>
-                <br>
-                <button class ="evtsModalBtn" id="upcomingEvtsModalBtn{{ business.bus_id }}">Upcoming Events</button>
-                <div id="myEvtsModal" class="modal">
+                <br> -->
+                <!-- <button class ="evtsModalBtn" id="upcomingEvtsModalBtn{{ business.bus_id }}">Upcoming Events</button> -->
+                <!-- <div id="myEvtsModal" class="modal"> -->
     
                     <!-- Modal content -->
-                    <div class="modal-content">
-                      <span class="close">&times;</span>
+                    <!-- <div class="modal-content">
+                      <span class="close">&times;</span> -->
                       <!-- Showing event object, need to show good info now -->
                       <!-- Maybe get events by bus_id in server -->
-                      <p>{{ business.event }}</p>
+                      <!-- <p>{{ business.event }}</p>
                     </div>
+                    </div> -->
+                    
                   
-                  </div>
-            </div>
+            
+      </div>
+       
         {% endfor %}
-    </ul>
+        </div>
+    <!-- </div> -->
+    <!-- </div> -->
+
+
+    
 
     <script src="/static/js/evtsmodal.js"></script>
     <script src="/static/js/user_faves.js"></script>

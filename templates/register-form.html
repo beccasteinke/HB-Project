@@ -4,30 +4,34 @@
 {% block title %}Registration{% endblock %}
 
 {% block body %}
+<div id="register-box" class="row align-items-center justify-content-center">
+    <div class="col-4">
     <h1>Please Create an Account</h1>
     <form action="/user-registration" method="POST">
-        <p>
-            First Name <input type="text" name="fname" id="fname" required>
-        </p>
+        <div class="active-cyan-4 mb-4">
+            <input type="text" class="form-control" placeholder="first name" name="fname" id="fname" required>
+        </div>
 
-        <p>
-            Last Name <input type="text" name="lname" id="lname" required>
-        </p>
-        <p>
-            Email <input type="text" name="email" id="user-email" required>
-        </p>
-        <p>
-            Password <input type="password" name="password" id="user-password" required>
-        </p>
-        <p>
-            Mobile Number: <input type="tel" name="tel" id="user-tel"
+        <div class="active-cyan-4 mb-4">
+            <input type="text" name="lname" class="form-control" placeholder="last name" id="lname" required>
+        </div>
+        <div class="active-cyan-4 mb-4">
+            <input type="text" name="email" class="form-control" placeholder="email address" id="user-email" required>
+        </div>
+        <div class="active-cyan-4 mb-4">
+            <input type="password" name="password" class="form-control" placeholder="password" id="user-password" required>
+        </div>
+        <div class="active-cyan-4 mb-4">
+            <input type="tel" name="tel" class="form-control" placeholder="555-555-5555" id="user-tel"
             pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
             required>
-        </p>
+        </div>
 
         <p>
-            <input type="submit" id="user-register-btn">
+            <input type="submit" class="btn btn-info" id="user-register-btn">
         </p>
     </form>
+    </div>
+    </div>
     <script src="/static/js/user-register.js"></script>
     {% endblock %}
