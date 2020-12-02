@@ -4,14 +4,17 @@
 {% block title %}Business Registration{% endblock %}
 
 {% block body %}
+<div id="bus-box" class="row align-items-center justify-content-center">
+<div class="col-4">
     <h1>Please Create a Business Account</h1>
     <form action="/business-registration" method="POST" enctype="multipart/form-data">
-        <p>
-            Business Name <input type="text" name="bus_name" required>
-        </p>
-        <p>
-            Services Provided: 
-                <select id="service" name="name_serv">
+        <div class="active-cyan-4 mb-4">
+            <input type="text" name="bus_name" class="form-control" placeholder="business name" required>
+        </div>
+        <div class="form-group">
+            <!-- <label for="servicesProvided">Services Provided</label> -->
+                <select class="custom-select" id="customSelect" name="name_serv" placeholder="Services Provided">
+                    <option selected>Services Provided</option>
                     <option value="bodywork">Bodywork</option>
                     <option value="breathwork">Breathwork</option>
                     <option value="energy-work">Energy Work</option>
@@ -24,36 +27,38 @@
                     <option value="yoga">Yoga</option>
                     <option value="">Other</option>
                 </select> 
-        </p>
-        <p>
-            Description <input type="text" name="description" required>
-        </p>
-        <p>
-            Website <input type="text" name="url" required>
-        </p>
-        <p>
-            Address <input type="text" name="address" required>
-        </p>
-        <p>
-            Email <input type="text" name="email" required>
-        </p>
-        <p>
-            Password <input type="password" name="bus_passwrd" required>
-        </p>
-        <p>
-            Phone: <input type="tel" id="phone" name="tel"
-            pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+            </div>
+        <div class="active-cyan-4 mb-4">
+            <input type="text" name="description" class="form-control" placeholder="description" required>
+        </div>
+        <div class="active-cyan-4 mb-4">
+            <input type="text" name="url" class="form-control" placeholder="website url"
             required>
-        </p>
-        <p>
-            Image Upload: 
-                <input type="file" id="image" name="photo">
+        </div>
+        <div class="active-cyan-4 mb-4">
+            <input type="text" name="address" class="form-control" placeholder="address" required>
+        </div>
+        <div class="active-cyan-4 mb-4">
+            <input type="text" name="email" class="form-control" placeholder="email address" required>
+        </div>
+        <div class="active-cyan-4 mb-4">
+            <input type="password" name="bus_passwrd" class="form-control" placeholder="password" required>
+        </div>
+        <div class="active-cyan-4 mb-4">
+            <input type="tel" id="phone" name="tel"
+            pattern="[0-9]{3}[0-9]{3}[0-9]{4}" class="form-control" placeholder="555-555-5555" required>
+        </div>
+        <div class="active-cyan-4 mb-4 custom-file">
+            <label class="custom-file-label" for="customFile">Image Upload</label>
+                <input type="file" class="custom-file-input" id="customFile" name="photo">
                 <!-- <button type="submit">Save Photo</button> -->
-        </p>
+        </div>
 
         <p>
             <input type="submit">
         </p>
     </form>
+    </div>
+</div>
 
     {% endblock %}
