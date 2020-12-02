@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Add Events{% endblock %}
+
+{% block body %}
+<div id="login-box" class="row align-items-center justify-content-center">
+<div class="col-4">
+    <h1>Add an Event</h1>
+<br>
+
+<form action="/add-event" method="POST">
+    <div class="active-cyan-4 mb-4">
+        <input type="text" name="bus_name" class="form-control" placeholder="business name">
+    </div>
+    <div class="active-cyan-4 mb-4">
+        <input type="text" name="name_evt" class="form-control" placeholder="event title">
+    </div>
+    <div class="active-cyan-4 mb-4">
+        <input type="datetime-local" name="start" class="form-control">
+    </div>
+    <div class="active-cyan-4 mb-4">
+        <input type="datetime-local" name="end" class="form-control">
+    </div>
+    <div class="active-cyan-4 mb-4">
+        <input type="text" name="description" class="form-control" placeholder="description" required>
+    </div>
+    <p>
+        <button type="submit" id="evt-submit" class="btn btn-info" name="evt-submit">Submit</button>
+    </p>
+</form>
+<p>Not registered? <a href="/user-registration">Create an account</a></p>
+</div>
+</div>
+
+
+{% endblock %}

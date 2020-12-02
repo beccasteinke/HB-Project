@@ -73,20 +73,16 @@ def login_user():
         flash('Login info is incorrect, try again.')
         return redirect('/signin')
 
-#TODO; FIX THIS ROUTE and lOGIN/LOGOUT SHIT
+
 @app.route('/isloggedin')
 def is_logged_in():
-# TODO: authenticate 
+
     
     if session['logged_in']:
         return jsonify(session['logged_in'])
     else:
         return jsonify(False)
 
-    # # if user_id exists in session - return != None
-
-    # else:
-    #     return jsonify(session["user_id"] == None)
 
 @app.route('/logout')
 def user_logout():
@@ -110,8 +106,6 @@ def all_businesses():
     all_bus = crud.get_businesses()
 
     all_servs = crud.get_servs()
-
-    # evts_bus = crud.get_evt_by_bus(bus_id)
 
     """Search form"""
     search = SearchForm(request.form)
@@ -145,10 +139,6 @@ def search_results(search):
     else:
         qry = crud.db.session.query(Business)
         results = qry.all()
-
-    # if search.data['search'] == '':
-    #     qry = crud.db.session.query(Business)
-    #     results = qry.all()
     
     if not results:
         flash('No results found')
@@ -165,8 +155,7 @@ def add_bus():
 
     return render_template('bus-add-form.html')
 
-# TODO: service isn't quite matching up. 
-# Need to take the service input and turn it into a service id, so I can add it to the DB
+
 @app.route('/business-registration', methods=['POST'])
 def register_bus():
     """add a business to the business table in the db"""
@@ -178,7 +167,6 @@ def register_bus():
     tel = request.form.get('tel')
     description = request.form.get('description')
     image = photos.save(request.files['photo'])
-    # image_save = images.save(form.dog_img.data)
     service = request.form.get('name_serv')
     bus_passwrd = request.form.get('bus_passwrd')
 
@@ -263,11 +251,8 @@ def show_bus_profile():
 @app.route('/directory/<bus_name>')
 def show_business(bus_name):
     """Show details on a particular business"""
-    print(bus_name)
-    print("********* bus name up top")
+
     business = crud.get_bus_by_name(bus_name)
-    print(business)
-    print("************ business up top")
 
     return render_template('/business_details.html', business=business)
 
@@ -281,7 +266,6 @@ def serv_filter(service_id):
     return render_template('/filtered_businesses.html', businesses=businesses)
 
 @app.route('/events/<bus_id>')
-# TODO: potentially change this so its directory/bus_name through a different query (.filter or.filter_by)
 def show_evts(bus_id):
     """Show events being put on by a particular business"""
 
@@ -308,9 +292,6 @@ def register_user():
         return redirect('/user-registration')
     else:
         user = crud.create_user(fname, lname, email, password, tel)
-
-        # add the user to the session:
-        # session["user_id"] = user.user_id
         flash('Account created sucessfully! Please log in')
 
         return render_template('login.html')
@@ -341,25 +322,27 @@ def show_bus_evts(bus_id):
 
 #TODO: finish this route
 
-# @app.route('/add-event', methods=['POST'])
-# def add_event():
-#     """add a new event to the business's profile and db"""
+@app.route('/add-event', methods=['POST', 'GET'])
+def add_event():
+    """add a new event to the business's profile and db"""
 
-#     business = request.form.get('bus_name')
-#     name_evt = request.form.get('name_evt')
+    business = request.form.get('bus_name')
+    name_evt = request.form.get('name_evt')
 
-#     start = request.form.get('start')
-#     end = request.form.get('end')
-#     description = request.form.get('description')
+    start = request.form.get('start')
+    end = request.form.get('end')
+    description = request.form.get('description')
 
-#     #TODO might run into service option problems
-#     service = request.form.get('service')
+    #TODO might run into service option problems
+    # service = request.form.get('service')
 
-#     #business = get bus_id from session?
+    #business = get bus_id from session?
 
-#     new_evt = crud.create_event(name_evt, start, end, description, service, business)
+    # new_evt = crud.create_event(name_evt, start, end, description, service, business)
 
-#     return redirect('/')
+        # return redirect('/')
+    
+    return render_template('add_evts.html')
 
 
 @app.route('/profile')
