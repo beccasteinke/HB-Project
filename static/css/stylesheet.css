@@ -184,6 +184,12 @@ svg {
   box-shadow: 0 0 0 1px #4dd0e1;
 }
 
+#portrait {
+  height: 320px;
+}
+ #portraitBox {
+   width: 100px;
+ }
 
 
 
